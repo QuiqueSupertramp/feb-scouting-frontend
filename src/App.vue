@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { RouterView } from 'vue-router'
+import TheLayout from './layouts/TheLayout.vue'
 </script>
 
 <template>
-  <RouterView />
+  <TheLayout />
 </template>
 
-<style scoped>
+<!-- <style scoped>
 nav {
   width: 100%;
   font-size: 12px;
@@ -31,4 +31,4 @@ nav a {
 nav a:first-of-type {
   border: 0;
 }
-</style>
+</style> -->

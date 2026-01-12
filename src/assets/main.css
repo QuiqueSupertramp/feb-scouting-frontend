@@ -1,1 +1,27 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+
+@theme {
+  --color-primary: var(--color-blue-500);
+  --color-orange: var(--color-orange-300);
+  --color-title: var(--color-gray-600);
+  --color-white: var(--color-gray-100);
+  --color-white-pure: #fff;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  width: 100%;
+}
+
+#app {
+  width: 100%;
+}
+
+.box-mobile {
+  max-width: var(--container-md);
+}
+
+.title {
+  font-weight: 500;
+  color: var(--color-title);
+}
