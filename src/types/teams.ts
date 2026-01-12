@@ -8,13 +8,27 @@ export interface Team {
 export interface TeamView {
   teamFebId: string
   name: string
-  pretty_name: string
-  league_id: number
-  games: string[]
-  stats: TeamStats
+  prettyName: string
+  leagueId: number
+  teamStats: GameTeamStats
+  scores: Score[]
+  playerStats: PlayerStatsView[]
 }
 
-export interface TeamStats {
+export interface Score {
+  gameFebId: string
+  round: number
+  date: string
+  time: string
+  localTeamFebId: string
+  localScore: number
+  localQuarters: number[]
+  awayTeamFebId: string
+  awayScore: number
+  awayQuarters: number[]
+}
+
+export interface GameTeamStats {
   minutes: number
   points: number
   twoPoints: ShotStats
@@ -32,8 +46,47 @@ export interface TeamStats {
   pir: number
 }
 
+export interface GamePlayerStats {
+  playerFebId: string
+  gameFebId: string
+  teamFebId: string
+  name: string
+  minutes: number
+  points: number
+  twoPoints: ShotStats
+  threePoints: ShotStats
+  fieldGoals: ShotStats
+  freeThrows: ShotStats
+  offensiveRebounds: number
+  defensiveRebounds: number
+  totalRebounds: number
+  assists: number
+  steals: number
+  turnovers: number
+  foulsCommitted: number
+  foulsDrawn: number
+  pir: number
+}
+
+export interface PlayerStatsView {
+  teamFebId: string
+  playerFebId: string
+  name: string
+  games: string[]
+  stats: Omit<GamePlayerStats, 'teamFebId' | 'playerFebId' | 'name' | 'gameFebId'>
+}
+
 export interface ShotStats {
   made: number
   attempted: number
   percentage?: number
+}
+
+export interface TeamStatsView {
+  teamFebId: string
+  name: string
+  prettyName: string
+  leagueId: number
+  games: string[]
+  stats: GameTeamStats
 }

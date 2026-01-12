@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { Network } from '@/api/network'
 import { useTeamsStore } from '@/stores/teams'
-import type { TeamView } from '@/types/teams'
+import type { TeamStatsView, TeamView } from '@/types/teams'
 import { computed, ref } from 'vue'
 import TeamStatsTableRow from './TeamStatsTableRow.vue'
 
@@ -19,7 +19,7 @@ const teamsOptions = computed(() => {
 
 const selectedTeam = ref('0')
 
-const awayTeam = ref<TeamView>()
+const awayTeam = ref<TeamStatsView>()
 const hasError = ref(false)
 const isLoading = ref(false)
 
@@ -28,7 +28,7 @@ const loadAwayTeam = async (e: Event) => {
   const teamId = (e.target as HTMLInputElement).value
   awayTeam.value = undefined
 
-  const { data, error } = await Network.get<TeamView>(`teams/${teamId}`)
+  const { data, error } = await Network.get<TeamStatsView>(`team-stats/${teamId}`)
 
   hasError.value = !!error
   selectedTeam.value = error ? '0' : teamId
@@ -80,70 +80,70 @@ const loadAwayTeam = async (e: Event) => {
             </tr>
             <TeamStatsTableRow
               label="Puntos"
-              :local="team.stats.points"
+              :local="team.teamStats.points"
               :away="awayTeam?.stats.points"
             />
             <TeamStatsTableRow
               label="Tiros de 2"
-              :local="team.stats.twoPoints.percentage"
+              :local="team.teamStats.twoPoints.percentage"
               :away="awayTeam?.stats.twoPoints.percentage"
               percentage
             />
             <TeamStatsTableRow
               label="Tiros de 3"
-              :local="team.stats.threePoints.percentage"
+              :local="team.teamStats.threePoints.percentage"
               :away="awayTeam?.stats.threePoints.percentage"
               percentage
             />
             <TeamStatsTableRow
               label="Tiros Libres"
-              :local="team.stats.freeThrows.percentage"
+              :local="team.teamStats.freeThrows.percentage"
               :away="awayTeam?.stats.freeThrows.percentage"
               percentage
             />
             <TeamStatsTableRow
               label="Reb. Ofensivos"
-              :local="team.stats.offensiveRebounds"
+              :local="team.teamStats.offensiveRebounds"
               :away="awayTeam?.stats.offensiveRebounds"
             />
             <TeamStatsTableRow
               label="Reb. Defensivos"
-              :local="team.stats.defensiveRebounds"
+              :local="team.teamStats.defensiveRebounds"
               :away="awayTeam?.stats.defensiveRebounds"
             />
             <TeamStatsTableRow
               label="Reb. Totales"
-              :local="team.stats.totalRebounds"
+              :local="team.teamStats.totalRebounds"
               :away="awayTeam?.stats.totalRebounds"
             />
             <TeamStatsTableRow
               label="Asistencias"
-              :local="team.stats.assists"
+              :local="team.teamStats.assists"
               :away="awayTeam?.stats.assists"
             />
             <TeamStatsTableRow
               label="Balones Recuperados"
-              :local="team.stats.steals"
+              :local="team.teamStats.steals"
               :away="awayTeam?.stats.steals"
             />
             <TeamStatsTableRow
               label="Balones Perdidos"
-              :local="team.stats.turnovers"
+              :local="team.teamStats.turnovers"
               :away="awayTeam?.stats.turnovers"
             />
             <TeamStatsTableRow
               label="Faltas Cometidas"
-              :local="team.stats.foulsCommitted"
+              :local="team.teamStats.foulsCommitted"
               :away="awayTeam?.stats.foulsCommitted"
             />
             <TeamStatsTableRow
               label="Faltas Recibidas"
-              :local="team.stats.foulsDrawn"
+              :local="team.teamStats.foulsDrawn"
               :away="awayTeam?.stats.foulsDrawn"
             />
             <TeamStatsTableRow
               label="Valoracion"
-              :local="team.stats.pir"
+              :local="team.teamStats.pir"
               :away="awayTeam?.stats.pir"
               no-border
             />
