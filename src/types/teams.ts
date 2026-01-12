@@ -79,7 +79,7 @@ export interface PlayerStatsView {
 export interface ShotStats {
   made: number
   attempted: number
-  percentage?: number
+  percentage: number
 }
 
 export interface TeamStatsView {

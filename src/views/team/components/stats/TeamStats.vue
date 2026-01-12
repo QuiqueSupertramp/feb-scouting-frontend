@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { Network } from '@/api/network'
 import { useTeamsStore } from '@/stores/teams'
-import type { TeamStatsView, TeamView } from '@/types/teams'
-import { computed, ref } from 'vue'
+import type { GameTeamStats, TeamStatsView, TeamView } from '@/types/teams'
+import { computed, onMounted, ref } from 'vue'
 import TeamStatsTableRow from './TeamStatsTableRow.vue'
 
 interface Props {
@@ -22,6 +22,7 @@ const selectedTeam = ref('0')
 const awayTeam = ref<TeamStatsView>()
 const hasError = ref(false)
 const isLoading = ref(false)
+const league = ref<GameTeamStats>()
 
 const loadAwayTeam = async (e: Event) => {
   isLoading.value = true
@@ -35,6 +36,13 @@ const loadAwayTeam = async (e: Event) => {
   awayTeam.value = error ? undefined : data
   isLoading.value = false
 }
+
+const loadLeagueStats = async () => {
+  const { data } = await Network.get<GameTeamStats>(`team-stats`)
+  league.value = data
+}
+
+onMounted(loadLeagueStats)
 </script>
 
 <template>
@@ -59,7 +67,12 @@ const loadAwayTeam = async (e: Event) => {
         <table class="text-left w-full">
           <tbody>
             <tr class="border-b border-gray-100">
-              <td class="pl-4 pr-4 py-3 w-1/2 title">GLOBALES</td>
+              <td class="pl-4 pr-4 py-3 w-1/4 title">GLOBALES</td>
+              <td class="py-3 w-1/4">
+                <div class="flex justify-center items-center">
+                  <img src="/src/assets/FebLogo.svg" class="h-8 w-8 rounded-full" />
+                </div>
+              </td>
               <td class="py-3 w-1/4">
                 <div class="flex justify-center items-center">
                   <img
@@ -79,72 +92,85 @@ const loadAwayTeam = async (e: Event) => {
               </td>
             </tr>
             <TeamStatsTableRow
-              label="Puntos"
+              label="PT"
               :local="team.teamStats.points"
               :away="awayTeam?.stats.points"
+              :league="league?.points"
             />
             <TeamStatsTableRow
-              label="Tiros de 2"
+              label="T2"
               :local="team.teamStats.twoPoints.percentage"
               :away="awayTeam?.stats.twoPoints.percentage"
+              :league="league?.twoPoints.percentage"
               percentage
             />
             <TeamStatsTableRow
-              label="Tiros de 3"
+              label="T3"
               :local="team.teamStats.threePoints.percentage"
               :away="awayTeam?.stats.threePoints.percentage"
+              :league="league?.threePoints.percentage"
               percentage
             />
             <TeamStatsTableRow
-              label="Tiros Libres"
+              label="TL"
               :local="team.teamStats.freeThrows.percentage"
               :away="awayTeam?.stats.freeThrows.percentage"
+              :league="league?.freeThrows.percentage"
               percentage
             />
             <TeamStatsTableRow
-              label="Reb. Ofensivos"
+              label="RO"
               :local="team.teamStats.offensiveRebounds"
               :away="awayTeam?.stats.offensiveRebounds"
+              :league="league?.offensiveRebounds"
             />
             <TeamStatsTableRow
-              label="Reb. Defensivos"
+              label="RD"
               :local="team.teamStats.defensiveRebounds"
               :away="awayTeam?.stats.defensiveRebounds"
+              :league="league?.defensiveRebounds"
             />
             <TeamStatsTableRow
-              label="Reb. Totales"
+              label="RT"
               :local="team.teamStats.totalRebounds"
               :away="awayTeam?.stats.totalRebounds"
+              :league="league?.totalRebounds"
             />
             <TeamStatsTableRow
-              label="Asistencias"
+              label="AS"
               :local="team.teamStats.assists"
               :away="awayTeam?.stats.assists"
+              :league="league?.assists"
             />
             <TeamStatsTableRow
-              label="Balones Recuperados"
+              label="BR"
               :local="team.teamStats.steals"
               :away="awayTeam?.stats.steals"
+              :league="league?.steals"
             />
             <TeamStatsTableRow
-              label="Balones Perdidos"
+              label="BP"
               :local="team.teamStats.turnovers"
               :away="awayTeam?.stats.turnovers"
+              :league="league?.turnovers"
             />
             <TeamStatsTableRow
-              label="Faltas Cometidas"
+              label="FC"
               :local="team.teamStats.foulsCommitted"
               :away="awayTeam?.stats.foulsCommitted"
+              :league="league?.foulsCommitted"
             />
             <TeamStatsTableRow
-              label="Faltas Recibidas"
+              label="FR"
               :local="team.teamStats.foulsDrawn"
               :away="awayTeam?.stats.foulsDrawn"
+              :league="league?.foulsDrawn"
             />
             <TeamStatsTableRow
-              label="Valoracion"
+              label="VA"
               :local="team.teamStats.pir"
               :away="awayTeam?.stats.pir"
+              :league="league?.pir"
               no-border
             />
           </tbody>

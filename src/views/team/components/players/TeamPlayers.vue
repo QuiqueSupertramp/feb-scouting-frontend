@@ -1,23 +1,12 @@
 <script lang="ts" setup>
 import type { TeamView } from '@/types/teams'
+import { formatPlayerName } from '../../../../helpers/players'
 
 interface Props {
   team: TeamView
 }
 
 const props = defineProps<Props>()
-
-const formatName = (name: string) => {
-  const nameOrdered = name.split(',').reverse().join(' ')
-  return nameOrdered
-    .trim()
-    .split(' ')
-    .map((s) => {
-      const [firstLetter, ...restOfLetters] = s
-      return `${firstLetter?.toUpperCase()}${restOfLetters.join('').toLowerCase()}`
-    })
-    .join(' ')
-}
 
 const sortPlayers = () => {
   const playerStats = [...props.team.playerStats]
@@ -60,7 +49,7 @@ const sortPlayers = () => {
                 />
               </td>
               <td class="pl-1 pt-3 text-left font-light" colspan="6">
-                {{ formatName(player.name) }}
+                {{ formatPlayerName(player.name) }}
               </td>
             </tr>
 
