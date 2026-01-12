@@ -4,7 +4,7 @@ import TeamMenuItem from './TeamMenuItem.vue'
 const menu = {
   stats: { to: { name: 'teamStats' }, label: 'Comparativa' },
   results: { to: { name: 'teamScores' }, label: 'Resultados' },
-  players: { to: { name: 'team' }, label: 'Comparativa' },
+  players: { to: { name: 'playerStats' }, label: 'Jugadores' },
   rankings: { to: { name: 'team' }, label: 'Comparativa' },
 }
 </script>

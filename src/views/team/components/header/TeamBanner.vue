@@ -20,7 +20,9 @@ defineProps<Props>()
         <span>Tercera FEB</span>
         <span>2024-2025</span>
       </div>
-      <span class="text-balance text-lg font-bold tracking-wide">{{ team.name }}</span>
+      <span class="text-balance text-lg font-bold tracking-wide text-white-pure">
+        {{ team.name }}
+      </span>
     </div>
   </header>
 </template>
