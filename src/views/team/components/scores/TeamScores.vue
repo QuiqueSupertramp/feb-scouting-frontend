@@ -10,11 +10,11 @@ defineProps<Props>()
 </script>
 
 <template>
-  <div class="px-4 my-8">
-    <div class="max-w-87 mx-auto flex flex-col gap-5">
+  <div class="px-8 my-8">
+    <div class="max-w-87 mx-auto grid grid-cols-1 sm:grid-cols-2 sm:max-w-full gap-8">
       <div v-for="score in team.scores" :key="score.gameFebId">
-        <div class="flex justify-between text-xs mb-2 italic">
-          <span>Jornada {{ score.round }}</span>
+        <div class="flex justify-between text-xs mb-2 italic font-extralight">
+          <span class="title">Jornada {{ score.round }}</span>
           <span>{{ score.date }} ({{ score.time.slice(0, -3) }})</span>
         </div>
 
