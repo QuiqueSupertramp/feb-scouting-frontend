@@ -1,41 +1,32 @@
 <script lang="ts" setup>
 import { RouterLink } from 'vue-router'
-import { ref } from 'vue'
 import IconTeam from '@/components/icons/IconTeam.vue'
 import IconBasketball from '@/components/icons/IconBasketball.vue'
 import IconBook from '@/components/icons/IconBook.vue'
 
-enum CurrentView {
-  TEAMS = 1,
-  LEAGUES = 2,
-  REPORTS = 3,
-}
-
 const menu = [
   {
-    id: CurrentView.TEAMS,
+    id: 1,
     link: '/teams',
     label: 'Equipos',
     icon: IconTeam,
     disabled: false,
   },
   {
-    id: CurrentView.LEAGUES,
+    id: 2,
     link: '/leagues',
     label: 'Ligas',
     icon: IconBasketball,
     disabled: false,
   },
   {
-    id: CurrentView.REPORTS,
+    id: 3,
     link: '/reports',
     label: 'Informes',
     icon: IconBook,
     disabled: false,
   },
 ]
-
-const currentView = ref<CurrentView>(1)
 </script>
 
 <template>
@@ -44,29 +35,39 @@ const currentView = ref<CurrentView>(1)
       v-for="item in menu"
       :key="item.id"
       :to="item.link"
-      @click="currentView = item.id"
-      class="pb-4 pt-5"
+      class="pb-3 pt-4"
       :class="{ disabled: item.disabled }"
     >
-      <div class="flex flex-col items-center justify-center gap-2">
-        <component
-          :is="item.icon"
-          :size="24"
-          :class="currentView === item.id ? 'text-orange!' : 'text-white!'"
-        />
-        <span
-          class="uppercase title"
-          :class="currentView === item.id ? 'text-orange!' : 'text-white!'"
-          >{{ item.label }}</span
-        >
+      <div class="flex flex-col items-center justify-center gap-1">
+        <component :is="item.icon" :size="24" />
+        <span class="uppercase font-semibold">{{ item.label }}</span>
       </div>
     </RouterLink>
   </footer>
 </template>
 
-<style lang="css" scoped>
+<style scoped>
 .disabled {
   opacity: 0.5;
   pointer-events: none;
 }
+
+a {
+  /* display: inline-block; */
+  color: var(--color-gray-100) !important;
+}
+
+a.router-link-active {
+  color: var(--color-orange) !important;
+  /* border-bottom: 2px solid var(--color-orange-500); */
+}
+
+a.router-link-active:hover {
+  background-color: transparent;
+  cursor: default;
+}
+
+/* nav a:first-of-type {
+  border: 0;
+} */
 </style>

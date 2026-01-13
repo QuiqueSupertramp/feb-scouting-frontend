@@ -63,7 +63,11 @@ onMounted(loadLeague)
             }"
           >
             <th class="pl-3 pr-1 py-3 font-normal">{{ index + 1 }}</th>
-            <th class="pr-1 py-3 font-normal">{{ team.name }}</th>
+            <th class="pr-1 py-3 font-normal">
+              <RouterLink :to="{ name: 'teamStats', params: { id: team.teamFebId } }">
+                {{ team.name }}
+              </RouterLink>
+            </th>
             <td class="text-center font-light">{{ team.wins }}</td>
             <td class="text-center font-light">{{ team.losses }}</td>
             <td class="text-center font-light">{{ team.pointsFor }}</td>

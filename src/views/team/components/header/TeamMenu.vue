@@ -16,32 +16,3 @@ const menu = {
     </nav>
   </div>
 </template>
-
-<!-- <style scoped>
-/* nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-} */
-
-nav div a.router-link-exact-active {
-  color: var(--color-orange);
-  border-bottom: 2px solid var(--color-orange);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-  cursor: default;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-bottom: 2px solid transparent;
-}
-
-/* nav a:first-of-type {
-  border: 0;
-} */
-</style> -->

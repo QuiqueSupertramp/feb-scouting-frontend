@@ -8,7 +8,7 @@ const router = createRouter({
       path: '/',
       name: 'home',
       // component: HomeView,
-      redirect: 'teams',
+      redirect: 'leagues',
     },
     {
       path: '/teams',
