@@ -27,7 +27,7 @@ const sortPlayers = () => {
 </script>
 
 <template>
-  <div class="mx-auto max-w-138 px-4 pb-6">
+  <div class="mx-auto max-w-138 px-8 pb-6">
     <div class="shadow-2xl bg-white-pure mt-8 rounded-lg overflow-hidden">
       <table class="w-full text-center">
         <tbody>

@@ -48,7 +48,7 @@ onMounted(loadLeagueStats)
 <template>
   <div v-if="!team">Se ha producido un error</div>
   <template v-else>
-    <div class="mx-auto max-w-87 mb-8">
+    <div class="mx-auto max-w-100 mb-8 px-4">
       <div class="w-full flex justify-center mb-3">
         <select
           v-if="teamsOptions"
@@ -67,10 +67,10 @@ onMounted(loadLeagueStats)
         <table class="text-left w-full">
           <tbody>
             <tr class="border-b border-gray-100">
-              <td class="pl-4 pr-4 py-3 w-1/4 title">GLOBALES</td>
+              <td class="pl-4 pr-4 py-3 w-1/4 title"></td>
               <td class="py-3 w-1/4">
                 <div class="flex justify-center items-center">
-                  <img src="/src/assets/images/FebLogo.png" class="h-8 w-8" />
+                  <img src="/src/assets/images/FebLogoHorizontal.webp" class="h-8" />
                 </div>
               </td>
               <td class="py-3 w-1/4">

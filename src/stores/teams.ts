@@ -11,6 +11,7 @@ export const useTeamsStore = defineStore('teams', () => {
   const isLoading = ref(false)
 
   const loadTeams = async () => {
+    if (teams.value.length > 0) return
     open()
     isLoading.value = true
 

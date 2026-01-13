@@ -10,8 +10,8 @@ const { isVisible, firstTime } = useLoader()
     class="absolute w-svw h-svh bg-gray-900 flex flex-col gap-4 justify-center items-center pb-40"
   >
     <div>
-      <img src="/src/assets/images/FebLogo.png" class="rounded-full animate-pulse" width="300" />
+      <img src="/src/assets/images/FebLogoFull.webp" class="animate-pulse" width="200" />
     </div>
-    <div class="text-center text-2xl animate-pulse text-white">Cargando...</div>
+    <div class="text-center text-2xl animate-pulse text-white mt-8">Cargando...</div>
   </div>
 </template>

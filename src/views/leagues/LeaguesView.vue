@@ -25,6 +25,8 @@ const loadLeague = async () => {
   open()
   isLoading.value = true
 
+  await store.loadTeams()
+
   const { data, error } = await Network.get<StandingRow[]>('scores/classification')
 
   hasError.value = !!error
@@ -41,16 +43,19 @@ onMounted(loadLeague)
 <template>
   <div v-if="!isLoading && hasError">Ha habido un error al cargar la liga</div>
 
-  <div v-if="!isLoading && !hasError && league" class="my-10">
-    <div class="mx-auto max-w-87 shadow-2xl bg-white-pure rounded-lg overflow-hidden mt-6">
+  <div v-if="!isLoading && !hasError && league" class="my-10 px-8">
+    <div class="flex justify-center items-center">
+      <img src="/src/assets/images/FebLogoHorizontal.webp" class="h-16 mb-4" />
+    </div>
+    <div class="mx-auto max-w-150 shadow-2xl bg-white-pure rounded-lg overflow-hidden">
       <table class="text-left w-full">
         <tbody>
-          <tr class="border-b border-gray-100">
-            <td class="pl-3 py-3 title" colspan="2">CLASIFICACIÓN</td>
-            <td class="py-3 px-1 title text-center">PG</td>
-            <td class="py-3 px-1 title text-center">PP</td>
-            <td class="py-3 px-3 title text-center">PF</td>
-            <td class="py-3 px-3 title text-center">PC</td>
+          <tr class="border-b border-gray-100 bg-cyan-900">
+            <td class="pl-3 py-3 text-white-pure font-semibold" colspan="2">CLASIFICACIÓN</td>
+            <td class="py-3 px-1 text-white-pure font-semibold text-center">PG</td>
+            <td class="py-3 px-1 text-white-pure font-semibold text-center">PP</td>
+            <td class="py-3 px-3 text-white-pure font-semibold text-center">PF</td>
+            <td class="py-3 px-3 text-white-pure font-semibold text-center">PC</td>
           </tr>
 
           <tr
@@ -63,7 +68,7 @@ onMounted(loadLeague)
             }"
           >
             <th class="pl-3 pr-1 py-3 font-normal">{{ index + 1 }}</th>
-            <th class="pr-1 py-3 font-normal">
+            <th class="pr-1 py-3 font-normal underline text-blue-600">
               <RouterLink :to="{ name: 'teamStats', params: { id: team.teamFebId } }">
                 {{ team.name }}
               </RouterLink>
