@@ -56,6 +56,11 @@ const router = createRouter({
       name: 'leagues',
       component: () => import('../views/leagues/LeaguesView.vue'),
     },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'NotFoundPage',
+      redirect: { name: 'leagues' },
+    },
   ],
 })
 
