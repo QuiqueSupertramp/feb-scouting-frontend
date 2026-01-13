@@ -11,6 +11,21 @@ defineProps<Props>()
 
 <template>
   <div class="shadow-xl bg-white-pure rounded-lg p-4">
+    <RouterLink
+      :to="{ name: 'team', params: { id: team.febId } }"
+      class="flex flex-col gap-4 items-center"
+    >
+      <div class="bg-cyan-500 rounded-full">
+        <img
+          :src="getTeamImage(team.febId)"
+          :alt="team.name"
+          class="h-20 md:h-28 w-20 md:w-28 rounded-full"
+        />
+      </div>
+      <span class="text-balance text-center title text-md md:text-lg">{{ team.prettyName }}</span>
+    </RouterLink>
+  </div>
+  <!-- <div class="shadow-xl bg-white-pure rounded-lg p-4">
     <RouterLink :to="{ name: 'team', params: { id: team.febId } }" class="flex gap-4 items-center">
       <div class="bg-cyan-500 rounded-full">
         <img
@@ -21,5 +36,5 @@ defineProps<Props>()
       </div>
       <span class="text-balance">{{ team.name }}</span>
     </RouterLink>
-  </div>
+  </div> -->
 </template>

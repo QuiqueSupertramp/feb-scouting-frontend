@@ -1,13 +1,13 @@
 <script lang="ts" setup>
 import { useLoader } from '@/composables/useLoader'
 
-const { isVisible } = useLoader()
+const { isVisible, firstTime } = useLoader()
 </script>
 
 <template>
   <div
-    v-if="isVisible"
-    class="absolute w-svw h-svh bg-gray-800 flex flex-col gap-4 justify-center items-center pb-40"
+    v-if="isVisible || firstTime"
+    class="absolute w-svw h-svh bg-gray-900 flex flex-col gap-4 justify-center items-center pb-40"
   >
     <div>
       <img src="/src/assets/images/FebLogo.png" class="rounded-full animate-pulse" width="300" />

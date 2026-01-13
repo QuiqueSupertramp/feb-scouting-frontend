@@ -8,7 +8,7 @@ const teamsStore = useTeamsStore()
 <template>
   <div
     v-if="!teamsStore.isLoading && teamsStore.teams"
-    class="px-4 grid grid-cols-1 sm:grid-cols-2 gap-4 my-10"
+    class="px-8 grid grid-cols-2 sm:grid-cols-3 gap-6 my-10"
   >
     <TeamViewItem v-for="team in teamsStore.teams" :key="team.febId" :team="team" />
   </div>
