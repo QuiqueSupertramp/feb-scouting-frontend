@@ -19,7 +19,7 @@ defineProps<Props>()
           class="h-10 md:h-12 w-10 md:w-12 rounded-full"
         />
       </div>
-      <span class="text-balance">{{ team.prettyName }}</span>
+      <span class="text-balance">{{ team.name }}</span>
     </RouterLink>
   </div>
 </template>
