@@ -17,7 +17,7 @@ const onClick = () => {
 </script>
 
 <template>
-  <div @click="onClick" ref="button" class="px-4 py-1 title uppercase snap-center cursor-pointer">
+  <div @click="onClick" ref="button" class="px-2 py-1 title uppercase snap-center cursor-pointer">
     <RouterLink :to="to">
       {{ label }}
     </RouterLink>
@@ -27,7 +27,7 @@ const onClick = () => {
 <style scoped>
 a.router-link-exact-active {
   color: var(--color-orange-500);
-  border-bottom: 2px solid var(--color-orange-500);
+  /* border-bottom: 2px solid var(--color-orange-500); */
 }
 
 a.router-link-exact-active:hover {

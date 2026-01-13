@@ -6,7 +6,6 @@ const teamsStore = useTeamsStore()
 </script>
 
 <template>
-  <div v-if="teamsStore.isLoading">Cargando...</div>
   <div
     v-if="!teamsStore.isLoading && teamsStore.teams"
     class="px-4 grid grid-cols-1 sm:grid-cols-2 gap-4 my-10"

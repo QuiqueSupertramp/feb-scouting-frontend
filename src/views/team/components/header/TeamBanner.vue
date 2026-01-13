@@ -17,8 +17,7 @@ defineProps<Props>()
     />
     <div class="flex flex-col items-start gap-1 text-white">
       <div class="flex gap-2 text-sm italic">
-        <span>Tercera FEB</span>
-        <span>2024-2025</span>
+        <span>Tercera FEB Grupo C-A</span>
       </div>
       <span class="text-balance text-lg font-bold tracking-wide text-white-pure">
         {{ team.name }}

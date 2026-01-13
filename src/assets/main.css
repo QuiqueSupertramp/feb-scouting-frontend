@@ -8,6 +8,10 @@
   --color-white-pure: #fff;
 }
 
+@utility no-scrollbar {
+  @apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
+}
+
 body {
   font-family: 'Roboto', sans-serif;
   width: 100%;

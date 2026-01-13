@@ -6,6 +6,7 @@ import type { GameTeamStats, TeamView } from '@/types/teams'
 import { Network } from '@/api/network'
 import RankingReport from './RankingReport.vue'
 import PlayersTableReport from './PlayersTableReport.vue'
+import { useLoader } from '@/composables/useLoader'
 
 interface Props {
   localId: string
@@ -14,6 +15,8 @@ interface Props {
 }
 
 const props = defineProps<Props>()
+
+const { open, close } = useLoader()
 
 const isLoading = ref(false)
 const hasErrors = ref(false)
@@ -36,6 +39,7 @@ const getLeague = async () => {
 }
 
 const loadTeams = async () => {
+  open()
   isLoading.value = true
   hasErrors.value = false
 
@@ -43,6 +47,7 @@ const loadTeams = async () => {
 
   if (!local.value || !away.value || !league.value) hasErrors.value = true
   isLoading.value = false
+  close()
 }
 
 // const textarea = ref()
@@ -51,7 +56,6 @@ onMounted(loadTeams)
 </script>
 
 <template>
-  <div v-if="isLoading">Cargando...</div>
   <div v-if="!isLoading && hasErrors">Error al cargar algún equipo</div>
 
   <div

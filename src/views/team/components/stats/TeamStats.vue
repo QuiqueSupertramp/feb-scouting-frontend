@@ -70,7 +70,7 @@ onMounted(loadLeagueStats)
               <td class="pl-4 pr-4 py-3 w-1/4 title">GLOBALES</td>
               <td class="py-3 w-1/4">
                 <div class="flex justify-center items-center">
-                  <img src="/src/assets/FebLogo.svg" class="h-8 w-8 rounded-full" />
+                  <img src="/src/assets/images/FebLogo.png" class="h-8 w-8" />
                 </div>
               </td>
               <td class="py-3 w-1/4">

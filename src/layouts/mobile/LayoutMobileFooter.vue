@@ -1,7 +1,9 @@
 <script lang="ts" setup>
 import { RouterLink } from 'vue-router'
 import { ref } from 'vue'
-import IconCommunity from '@/components/icons/IconCommunity.vue'
+import IconTeam from '@/components/icons/IconTeam.vue'
+import IconBasketball from '@/components/icons/IconBasketball.vue'
+import IconBook from '@/components/icons/IconBook.vue'
 
 enum CurrentView {
   TEAMS = 1,
@@ -14,19 +16,20 @@ const menu = [
     id: CurrentView.TEAMS,
     link: '/teams',
     label: 'Equipos',
-    icon: IconCommunity,
+    icon: IconTeam,
   },
   {
     id: CurrentView.LEAGUES,
     link: '/teams',
     label: 'Ligas',
-    icon: IconCommunity,
+    icon: IconBasketball,
+    disabled: true,
   },
   {
     id: CurrentView.REPORTS,
     link: '/reports',
     label: 'Informes',
-    icon: IconCommunity,
+    icon: IconBook,
   },
 ]
 
@@ -40,12 +43,13 @@ const currentView = ref<CurrentView>(1)
       :key="item.id"
       :to="item.link"
       @click="currentView = item.id"
-      class="pb-4 pt-6"
+      class="pb-4 pt-5"
+      :class="{ disabled: item.disabled }"
     >
       <div class="flex flex-col items-center justify-center gap-2">
         <component
           :is="item.icon"
-          :size="16"
+          :size="24"
           :class="currentView === item.id ? 'text-orange!' : 'text-white!'"
         />
         <span
@@ -57,3 +61,10 @@ const currentView = ref<CurrentView>(1)
     </RouterLink>
   </footer>
 </template>
+
+<style lang="css" scoped>
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+</style>

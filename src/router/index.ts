@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 import { LAYOUTS } from '@/layouts/types'
 
 const router = createRouter({
@@ -8,7 +7,8 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView,
+      // component: HomeView,
+      redirect: 'teams',
     },
     {
       path: '/teams',
