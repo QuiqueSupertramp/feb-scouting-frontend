@@ -17,19 +17,21 @@ const menu = [
     link: '/teams',
     label: 'Equipos',
     icon: IconTeam,
+    disabled: false,
   },
   {
     id: CurrentView.LEAGUES,
-    link: '/teams',
+    link: '/leagues',
     label: 'Ligas',
     icon: IconBasketball,
-    disabled: true,
+    disabled: false,
   },
   {
     id: CurrentView.REPORTS,
     link: '/reports',
     label: 'Informes',
     icon: IconBook,
+    disabled: false,
   },
 ]
 

@@ -51,6 +51,11 @@ const router = createRouter({
         layout: LAYOUTS.EMPTY,
       },
     },
+    {
+      path: '/leagues',
+      name: 'leagues',
+      component: () => import('../views/leagues/LeaguesView.vue'),
+    },
   ],
 })
 

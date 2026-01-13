@@ -7,7 +7,7 @@ const { isVisible } = useLoader()
 <template>
   <div
     v-if="isVisible"
-    class="absolute w-svw h-svh bg-gray-900/90 flex flex-col gap-4 justify-center items-center pb-20"
+    class="absolute w-svw h-svh bg-gray-800 flex flex-col gap-4 justify-center items-center pb-40"
   >
     <div>
       <img src="/src/assets/images/FebLogo.png" class="rounded-full animate-pulse" width="300" />
