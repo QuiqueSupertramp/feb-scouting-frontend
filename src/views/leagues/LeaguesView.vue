@@ -50,7 +50,7 @@ onMounted(loadLeague)
     <div class="mx-auto max-w-150 shadow-2xl bg-white-pure rounded-lg overflow-hidden">
       <table class="text-left w-full">
         <tbody>
-          <tr class="border-b border-gray-100 bg-cyan-900">
+          <tr class="border-b border-gray-100 bg-cyan-800">
             <td class="pl-3 py-3 text-white-pure font-semibold" colspan="2">CLASIFICACIÓN</td>
             <td class="py-3 px-1 text-white-pure font-semibold text-center">PG</td>
             <td class="py-3 px-1 text-white-pure font-semibold text-center">PP</td>

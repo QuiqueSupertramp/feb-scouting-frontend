@@ -3,6 +3,7 @@ export class Network {
     try {
       const response = await fetch(`https://feb-scouting-backend.onrender.com/${url}`, {
         method: 'GET',
+        credentials: 'include',
       })
       if (!response.ok) throw 'fd'
       const json = (await response.json()) as ApiErrorParams | ApiSuccess<T>
