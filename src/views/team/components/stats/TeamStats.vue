@@ -96,12 +96,14 @@ onMounted(loadLeagueStats)
               :local="team.teamStats.points"
               :away="awayTeam?.stats.points"
               :league="league?.points"
+              :better="true"
             />
             <TeamStatsTableRow
               label="T2"
               :local="team.teamStats.twoPoints.percentage"
               :away="awayTeam?.stats.twoPoints.percentage"
               :league="league?.twoPoints.percentage"
+              :better="true"
               percentage
             />
             <TeamStatsTableRow
@@ -109,6 +111,7 @@ onMounted(loadLeagueStats)
               :local="team.teamStats.threePoints.percentage"
               :away="awayTeam?.stats.threePoints.percentage"
               :league="league?.threePoints.percentage"
+              :better="true"
               percentage
             />
             <TeamStatsTableRow
@@ -116,6 +119,7 @@ onMounted(loadLeagueStats)
               :local="team.teamStats.freeThrows.percentage"
               :away="awayTeam?.stats.freeThrows.percentage"
               :league="league?.freeThrows.percentage"
+              :better="true"
               percentage
             />
             <TeamStatsTableRow
@@ -123,54 +127,63 @@ onMounted(loadLeagueStats)
               :local="team.teamStats.offensiveRebounds"
               :away="awayTeam?.stats.offensiveRebounds"
               :league="league?.offensiveRebounds"
+              :better="true"
             />
             <TeamStatsTableRow
               label="RD"
               :local="team.teamStats.defensiveRebounds"
               :away="awayTeam?.stats.defensiveRebounds"
               :league="league?.defensiveRebounds"
+              :better="true"
             />
             <TeamStatsTableRow
               label="RT"
               :local="team.teamStats.totalRebounds"
               :away="awayTeam?.stats.totalRebounds"
               :league="league?.totalRebounds"
+              :better="true"
             />
             <TeamStatsTableRow
               label="AS"
               :local="team.teamStats.assists"
               :away="awayTeam?.stats.assists"
               :league="league?.assists"
+              :better="true"
             />
             <TeamStatsTableRow
               label="BR"
               :local="team.teamStats.steals"
               :away="awayTeam?.stats.steals"
               :league="league?.steals"
+              :better="true"
             />
             <TeamStatsTableRow
               label="BP"
               :local="team.teamStats.turnovers"
               :away="awayTeam?.stats.turnovers"
               :league="league?.turnovers"
+              :better="false"
             />
             <TeamStatsTableRow
               label="FC"
               :local="team.teamStats.foulsCommitted"
               :away="awayTeam?.stats.foulsCommitted"
               :league="league?.foulsCommitted"
+              :better="null"
             />
             <TeamStatsTableRow
               label="FR"
               :local="team.teamStats.foulsDrawn"
               :away="awayTeam?.stats.foulsDrawn"
               :league="league?.foulsDrawn"
+              :better="null"
             />
             <TeamStatsTableRow
               label="VA"
               :local="team.teamStats.pir"
               :away="awayTeam?.stats.pir"
               :league="league?.pir"
+              :better="true"
               no-border
             />
           </tbody>
