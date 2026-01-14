@@ -14,7 +14,7 @@ console.log('props:', props)
 
 const teams = computed(() => {
   const local = {
-    id: props.local.teamFebId,
+    id: props.local.febId,
     name: props.local.prettyName,
     players: props.local.playerStats
       .map((s) => ({
@@ -25,7 +25,7 @@ const teams = computed(() => {
       .sort((a, b) => b.pir - a.pir),
   }
   const away = {
-    id: props.away.teamFebId,
+    id: props.away.febId,
     name: props.away.prettyName,
     players: props.away.playerStats
       .map((s) => ({

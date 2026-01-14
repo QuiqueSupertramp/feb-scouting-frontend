@@ -16,12 +16,12 @@ const props = defineProps<Props>()
 
 const teams = computed(() => {
   const local = {
-    id: props.local.teamFebId,
+    id: props.local.febId,
     name: props.local.prettyName,
     ...props.local.teamStats,
   }
   const away = {
-    id: props.away.teamFebId,
+    id: props.away.febId,
     name: props.away.prettyName,
     ...props.away.teamStats,
   }

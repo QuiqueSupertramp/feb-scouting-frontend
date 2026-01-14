@@ -8,10 +8,10 @@ interface Props {
 }
 
 const byLocal = () => {
-  const localScores = props.local.scores.filter((s) => s.localTeamFebId === props.local.teamFebId)
+  const localScores = props.local.scores.filter((s) => s.localTeamFebId === props.local.febId)
   const localTotalPoints = localScores.reduce((acc, curr) => acc + curr.localScore, 0)
   const localPoints = (localTotalPoints / localScores.length).toFixed(0)
-  const awayScores = props.away.scores.filter((s) => s.awayTeamFebId === props.away.teamFebId)
+  const awayScores = props.away.scores.filter((s) => s.awayTeamFebId === props.away.febId)
   const awayTotalPoints = awayScores.reduce((acc, curr) => acc + curr.awayScore, 0)
   const awayPoints = (awayTotalPoints / awayScores.length).toFixed(0)
 
@@ -37,14 +37,12 @@ const scores = computed(() => ({
     byLast: (() => {
       const scores = props.local.scores.slice(0, 3)
       const myTotalPoints = scores.reduce((acc, curr) => {
-        const score =
-          curr.localTeamFebId === props.local.teamFebId ? curr.localScore : curr.awayScore
+        const score = curr.localTeamFebId === props.local.febId ? curr.localScore : curr.awayScore
         return acc + score
       }, 0)
       const myPoints = (myTotalPoints / scores.length).toFixed(0)
       const opponentTotalPoints = scores.reduce((acc, curr) => {
-        const score =
-          curr.localTeamFebId === props.local.teamFebId ? curr.awayScore : curr.localScore
+        const score = curr.localTeamFebId === props.local.febId ? curr.awayScore : curr.localScore
         return acc + score
       }, 0)
       const opponentPoints = (opponentTotalPoints / scores.length).toFixed(0)
@@ -57,20 +55,18 @@ const scores = computed(() => ({
     })(),
     byWin: (() => {
       const scores = props.local.scores.filter((score) => {
-        const isLocal = score.localTeamFebId === props.local.teamFebId
+        const isLocal = score.localTeamFebId === props.local.febId
         const myScore = isLocal ? score.localScore : score.awayScore
         const otherScore = isLocal ? score.awayScore : score.localScore
         return myScore > otherScore
       })
       const myTotalPoints = scores.reduce((acc, curr) => {
-        const score =
-          curr.localTeamFebId === props.local.teamFebId ? curr.localScore : curr.awayScore
+        const score = curr.localTeamFebId === props.local.febId ? curr.localScore : curr.awayScore
         return acc + score
       }, 0)
       const myPoints = (myTotalPoints / scores.length).toFixed(0)
       const opponentTotalPoints = scores.reduce((acc, curr) => {
-        const score =
-          curr.localTeamFebId === props.local.teamFebId ? curr.awayScore : curr.localScore
+        const score = curr.localTeamFebId === props.local.febId ? curr.awayScore : curr.localScore
         return acc + score
       }, 0)
       const opponentPoints = (opponentTotalPoints / scores.length).toFixed(0)
@@ -82,20 +78,18 @@ const scores = computed(() => ({
     })(),
     byLost: (() => {
       const scores = props.local.scores.filter((score) => {
-        const isLocal = score.localTeamFebId === props.local.teamFebId
+        const isLocal = score.localTeamFebId === props.local.febId
         const myScore = isLocal ? score.localScore : score.awayScore
         const otherScore = isLocal ? score.awayScore : score.localScore
         return myScore < otherScore
       })
       const myTotalPoints = scores.reduce((acc, curr) => {
-        const score =
-          curr.localTeamFebId === props.local.teamFebId ? curr.localScore : curr.awayScore
+        const score = curr.localTeamFebId === props.local.febId ? curr.localScore : curr.awayScore
         return acc + score
       }, 0)
       const myPoints = (myTotalPoints / scores.length).toFixed(0)
       const opponentTotalPoints = scores.reduce((acc, curr) => {
-        const score =
-          curr.localTeamFebId === props.local.teamFebId ? curr.awayScore : curr.localScore
+        const score = curr.localTeamFebId === props.local.febId ? curr.awayScore : curr.localScore
         return acc + score
       }, 0)
       const opponentPoints = (opponentTotalPoints / scores.length).toFixed(0)

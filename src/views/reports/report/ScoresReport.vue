@@ -14,40 +14,40 @@ const teamsStore = useTeamsStore()
 
 const teams = computed(() => {
   const local = {
-    febId: props.local.teamFebId,
+    febId: props.local.febId,
     scores: props.local.scores.slice(0, 5).map((s) => ({
       gameFebId: s.gameFebId,
       result: `${s.localScore} - ${s.awayScore}`,
       teams: `${getTeamName(s.localTeamFebId)} - ${getTeamName(s.awayTeamFebId)}`,
-      isWinOrLost: difference(s, props.local.teamFebId) > 0 ? 'WIN' : 'LOST',
+      isWinOrLost: difference(s, props.local.febId) > 0 ? 'WIN' : 'LOST',
       local: {
         score: s.localScore,
         name: getTeamName(s.localTeamFebId),
-        isLocal: s.localTeamFebId === props.local.teamFebId,
+        isLocal: s.localTeamFebId === props.local.febId,
       },
       away: {
         score: s.awayScore,
         name: getTeamName(s.awayTeamFebId),
-        isLocal: s.awayTeamFebId === props.local.teamFebId,
+        isLocal: s.awayTeamFebId === props.local.febId,
       },
     })),
   }
   const away = {
-    febId: props.away.teamFebId,
+    febId: props.away.febId,
     scores: props.away.scores.slice(0, 5).map((s) => ({
       gameFebId: s.gameFebId,
       result: `${s.localScore} - ${s.awayScore}`,
       teams: `${getTeamName(s.localTeamFebId)} - ${getTeamName(s.awayTeamFebId)}`,
-      isWinOrLost: difference(s, props.away.teamFebId) > 0 ? 'WIN' : 'LOST',
+      isWinOrLost: difference(s, props.away.febId) > 0 ? 'WIN' : 'LOST',
       local: {
         score: s.localScore,
         name: getTeamName(s.localTeamFebId),
-        isLocal: s.localTeamFebId === props.away.teamFebId,
+        isLocal: s.localTeamFebId === props.away.febId,
       },
       away: {
         score: s.awayScore,
         name: getTeamName(s.awayTeamFebId),
-        isLocal: s.awayTeamFebId === props.away.teamFebId,
+        isLocal: s.awayTeamFebId === props.away.febId,
       },
     })),
   }
@@ -55,12 +55,12 @@ const teams = computed(() => {
   return [local, away]
 })
 
-const getTeamName = (teamFebId: string) => {
-  return teamsStore.teams.find((t) => t.febId === teamFebId)?.prettyName ?? '??'
+const getTeamName = (febId: string) => {
+  return teamsStore.teams.find((t) => t.febId === febId)?.prettyName ?? '??'
 }
 
-const difference = (score: Score, teamFebId: string) => {
-  const isLocal = score.localTeamFebId === teamFebId
+const difference = (score: Score, febId: string) => {
+  const isLocal = score.localTeamFebId === febId
   const myScore = isLocal ? score.localScore : score.awayScore
   const otherScore = isLocal ? score.awayScore : score.localScore
   return myScore - otherScore
