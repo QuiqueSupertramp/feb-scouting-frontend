@@ -6,13 +6,14 @@ export interface Team {
 }
 
 export interface TeamView {
-  teamFebId: string
+  febId: string
   name: string
   prettyName: string
   leagueId: number
   teamStats: GameTeamStats
   scores: Score[]
   playerStats: PlayerStatsView[]
+  points: PointsStats
 }
 
 export interface Score {
@@ -89,4 +90,19 @@ export interface TeamStatsView {
   leagueId: number
   games: string[]
   stats: GameTeamStats
+}
+
+type Quarters = [number, number, number, number]
+
+interface Points {
+  points: number
+  pointsAgainst: number
+  quarters: Quarters
+  quartersAgainst: Quarters
+}
+
+export interface PointsStats {
+  total: Points
+  local: Points
+  away: Points
 }

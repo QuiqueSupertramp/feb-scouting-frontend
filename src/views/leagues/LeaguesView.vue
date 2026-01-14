@@ -3,21 +3,12 @@ import { Network } from '@/api/network'
 import { onMounted, ref } from 'vue'
 import { useTeamsStore } from '@/stores/teams'
 import { useLoader } from '@/composables/useLoader'
-
-interface StandingRow {
-  teamFebId: string
-  played: number
-  wins: number
-  losses: number
-  pointsFor: number
-  pointsAgainst: number
-  name: string
-}
+import type { Classifications } from './types'
 
 const { open, close } = useLoader()
 const store = useTeamsStore()
 
-const league = ref<StandingRow[]>()
+const classifications = ref<Classifications>()
 const hasError = ref(false)
 const isLoading = ref(false)
 
@@ -27,15 +18,31 @@ const loadLeague = async () => {
 
   await store.loadTeams()
 
-  const { data, error } = await Network.get<StandingRow[]>('scores/classification')
+  const { data, error } = await Network.get<Classifications>('scores/classification')
 
   hasError.value = !!error
-  league.value = error
+  classifications.value = error
     ? undefined
-    : data.map((d) => ({ ...d, name: store.getTeam(d.teamFebId)?.prettyName ?? '-' }))
+    : {
+        total: data.total.map((team) => ({
+          ...team,
+          name: store.getTeam(team.teamFebId)?.prettyName ?? '-',
+        })),
+        local: data.local.map((team) => ({
+          ...team,
+          name: store.getTeam(team.teamFebId)?.prettyName ?? '-',
+        })),
+        away: data.away.map((team) => ({
+          ...team,
+          name: store.getTeam(team.teamFebId)?.prettyName ?? '-',
+        })),
+      }
   isLoading.value = false
   close()
 }
+
+const selectedLeague = ref<'total' | 'local' | 'away'>('total')
+const showTotalPoints = ref(false)
 
 onMounted(loadLeague)
 </script>
@@ -43,9 +50,41 @@ onMounted(loadLeague)
 <template>
   <div v-if="!isLoading && hasError">Ha habido un error al cargar la liga</div>
 
-  <div v-if="!isLoading && !hasError && league" class="my-10 px-8">
-    <div class="flex justify-center items-center">
+  <div v-if="!isLoading && !hasError && classifications" class="my-10 px-8">
+    <!-- <div class="flex justify-center items-center">
       <img src="/src/assets/images/FebLogoHorizontal.webp" class="h-16 mb-4" />
+    </div> -->
+    <div class="mx-auto max-w-150 grid grid-cols-3 gap-2 mb-6">
+      <button
+        @click="selectedLeague = 'total'"
+        class="bg-white-pure rounded-full shadow-2xl font-semibold text-cyan-800 px-6 py-2"
+        :class="{ 'bg-orange!': selectedLeague === 'total' }"
+      >
+        Total
+      </button>
+      <button
+        @click="selectedLeague = 'local'"
+        class="bg-white-pure rounded-full shadow-2xl font-semibold text-cyan-800 px-6 py-2"
+        :class="{ 'bg-orange!': selectedLeague === 'local' }"
+      >
+        Local
+      </button>
+      <button
+        @click="selectedLeague = 'away'"
+        class="bg-white-pure rounded-full shadow-2xl font-semibold text-cyan-800 px-6 py-2"
+        :class="{ 'bg-orange!': selectedLeague === 'away' }"
+      >
+        Visitante
+      </button>
+    </div>
+    <div class="mx-auto max-w-150 mb-2">
+      <label class="flex flex-row-reverse items-center gap-2 cursor-pointer">
+        <input v-model="showTotalPoints" type="checkbox" class="sr-only peer" />
+        <div
+          class="relative w-7 h-4 bg-gray-300 after:bg-white-pure rounded-full peer peer-checked:after:-translate-x-full rtl:peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0 after:start-3.5 after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-cyan-800 peer-checked:after:bg-white-pure"
+        ></div>
+        <span class="text-xs font-light">Puntos Totales</span>
+      </label>
     </div>
     <div class="mx-auto max-w-150 shadow-2xl bg-white-pure rounded-lg overflow-hidden">
       <table class="text-left w-full">
@@ -59,10 +98,10 @@ onMounted(loadLeague)
           </tr>
 
           <tr
-            v-for="(team, index) in league"
+            v-for="(team, index) in classifications[selectedLeague]"
             :key="team.teamFebId"
             :class="{
-              'border-b border-white': index !== league.length - 1,
+              'border-b border-white': index !== classifications.total.length - 1,
               'bg-green-100 border-white-pure': index < 4,
               'bg-cyan-100 border-white-pure': index > 10,
             }"
@@ -75,8 +114,14 @@ onMounted(loadLeague)
             </th>
             <td class="text-center font-light">{{ team.wins }}</td>
             <td class="text-center font-light">{{ team.losses }}</td>
-            <td class="text-center font-light">{{ team.pointsFor }}</td>
-            <td class="text-center font-light">{{ team.pointsAgainst }}</td>
+            <td class="text-center font-light">
+              {{ !showTotalPoints ? Math.round(team.points / team.games) : team.points }}
+            </td>
+            <td class="text-center font-light">
+              {{
+                !showTotalPoints ? Math.round(team.pointsAgainst / team.games) : team.pointsAgainst
+              }}
+            </td>
           </tr>
         </tbody>
       </table>

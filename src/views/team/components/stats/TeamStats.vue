@@ -14,7 +14,7 @@ const props = defineProps<Props>()
 const teamsStore = useTeamsStore()
 
 const teamsOptions = computed(() => {
-  return teamsStore.teams.filter((t) => t.febId !== props.team.teamFebId)
+  return teamsStore.teams.filter((t) => t.febId !== props.team.febId)
 })
 
 const selectedTeam = ref('0')
@@ -76,7 +76,7 @@ onMounted(loadLeagueStats)
               <td class="py-3 w-1/4">
                 <div class="flex justify-center items-center">
                   <img
-                    :src="`https://imagenes.feb.es/Imagen.aspx?i=${team.teamFebId}&ti=1`"
+                    :src="`https://imagenes.feb.es/Imagen.aspx?i=${team.febId}&ti=1`"
                     class="h-8 w-8 rounded-full"
                   />
                 </div>
