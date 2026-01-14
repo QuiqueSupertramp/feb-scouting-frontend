@@ -26,7 +26,7 @@ const formatName = (name: string) => {
       <table class="text-left w-full">
         <tbody>
           <tr>
-            <th class="text-center py-3 border-b border-gray-200 title" colspan="2">
+            <th class="text-center py-3 border-b border-gray-200 title uppercase" colspan="2">
               {{ title }}
             </th>
           </tr>
