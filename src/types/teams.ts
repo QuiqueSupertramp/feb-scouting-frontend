@@ -10,7 +10,7 @@ export interface TeamView {
   name: string
   prettyName: string
   leagueId: number
-  teamStats: GameTeamStats
+  teamStats: GameTeamStatsList
   scores: Score[]
   playerStats: PlayerStatsView[]
   points: PointsStats
@@ -31,6 +31,12 @@ export interface Score {
   awayPrettyName: string
   awayScore: number
   awayQuarters: number[]
+}
+
+export interface GameTeamStatsList {
+  total: GameTeamStats
+  local: GameTeamStats
+  away: GameTeamStats
 }
 
 export interface GameTeamStats {

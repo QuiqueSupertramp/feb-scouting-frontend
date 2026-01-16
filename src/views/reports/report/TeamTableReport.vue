@@ -14,12 +14,12 @@ const teams = computed(() => {
   const local = {
     id: props.local.febId,
     name: props.local.prettyName,
-    ...props.local.teamStats,
+    ...props.local.teamStats.total,
   }
   const away = {
     id: props.away.febId,
     name: props.away.prettyName,
-    ...props.away.teamStats,
+    ...props.away.teamStats.total,
   }
   const league = {
     id: '0',

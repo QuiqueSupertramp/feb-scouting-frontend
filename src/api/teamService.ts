@@ -1,4 +1,4 @@
-import type { GameTeamStats, Team, TeamStatsView, TeamView } from '@/types/teams'
+import type { GameTeamStats, GameTeamStatsList, Team, TeamView } from '@/types/teams'
 import { fetcher } from './fetcher'
 
 export class TeamService {
@@ -7,5 +7,5 @@ export class TeamService {
 
   static getLeagueStats = async () => await fetcher<GameTeamStats>(`/team-stats`)
   static getTeamStats = async (teamFebId: string) =>
-    await fetcher<TeamStatsView>(`/team-stats/${teamFebId}`)
+    await fetcher<GameTeamStatsList>(`/team-stats/${teamFebId}`)
 }

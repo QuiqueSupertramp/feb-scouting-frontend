@@ -27,10 +27,10 @@ const scores = computed(() => ({
   local: {
     byTotal: {
       winOrLost:
-        props.local.teamStats.points > props.away.teamStats.points
+        props.local.teamStats.total.points > props.away.teamStats.total.points
           ? props.local.prettyName
           : props.away.prettyName,
-      result: `${props.local.teamStats.points.toFixed(0)} - ${props.away.teamStats.points.toFixed(0)}`,
+      result: `${props.local.teamStats.total.points.toFixed(0)} - ${props.away.teamStats.total.points.toFixed(0)}`,
       label: 'Según totales',
     },
     byLocal: byLocal(),
