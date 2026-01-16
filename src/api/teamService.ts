@@ -5,7 +5,7 @@ export class TeamService {
   static getTeams = async () => await fetcher<Team[]>('/teams')
   static getTeam = async (teamFebId: string) => await fetcher<TeamView>(`/teams/${teamFebId}`)
 
-  static getLeagueStats = async () => await fetcher<GameTeamStats>(`/team-stats?league`)
+  static getLeagueStats = async () => await fetcher<GameTeamStats>(`/team-stats`)
   static getTeamStats = async (teamFebId: string) =>
     await fetcher<TeamStatsView>(`/team-stats/${teamFebId}`)
 }

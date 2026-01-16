@@ -24,7 +24,7 @@ const menu = [
     link: '/reports',
     label: 'Informes',
     icon: IconBook,
-    disabled: false,
+    disabled: true,
   },
 ]
 </script>
