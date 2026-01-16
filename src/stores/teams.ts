@@ -1,30 +1,30 @@
-import { ref } from 'vue'
-import { defineStore } from 'pinia'
-import type { Team } from '@/types/teams'
-import { Network } from '@/api/network'
-import { useLoader } from '@/composables/useLoader'
+// import { ref } from 'vue'
+// import { defineStore } from 'pinia'
+// import type { Team } from '@/types/teams'
+// import { Network } from '@/api/network'
+// import { useLoader } from '@/composables/useLoader'
 
-export const useTeamsStore = defineStore('teams', () => {
-  const { open, close } = useLoader()
+// export const useTeamsStore = defineStore('teams', () => {
+//   const { open, close } = useLoader()
 
-  const teams = ref<Team[]>([])
-  const isLoading = ref(false)
+//   const teams = ref<Team[]>([])
+//   const isLoading = ref(false)
 
-  const loadTeams = async () => {
-    if (teams.value.length > 0) return
-    open()
-    isLoading.value = true
+//   const loadTeams = async () => {
+//     if (teams.value.length > 0) return
+//     open()
+//     isLoading.value = true
 
-    const { data, error } = await Network.get<Team[]>('teams')
+//     const { data, error } = await Network.get<Team[]>('teams')
 
-    teams.value = error ? [] : data
-    isLoading.value = false
-    close()
-  }
+//     teams.value = error ? [] : data
+//     isLoading.value = false
+//     close()
+//   }
 
-  const getTeam = (teamFebId: string) => {
-    return teams.value.find((t) => t.febId === teamFebId)
-  }
+//   const getTeam = (teamFebId: string) => {
+//     return teams.value.find((t) => t.febId === teamFebId)
+//   }
 
-  return { teams, isLoading, getTeam, loadTeams }
-})
+//   return { teams, isLoading, getTeam, loadTeams }
+// })

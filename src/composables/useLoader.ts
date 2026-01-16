@@ -6,11 +6,11 @@ const firstTime = ref(true)
 export const useLoader = () => {
   const open = () => (isVisible.value = true)
   const close = () => {
-    isVisible.value = false
-    if (!firstTime.value) return
+    if (!firstTime.value) return (isVisible.value = false)
 
     setTimeout(() => {
       firstTime.value = false
+      isVisible.value = false
     }, 500)
   }
 

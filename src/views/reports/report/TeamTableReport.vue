@@ -10,10 +10,6 @@ interface Props {
 
 const props = defineProps<Props>()
 
-// const league = ref<TeamStats>()
-
-// const loadleague = async () => (league.value = await teamsStore.getleague())
-
 const teams = computed(() => {
   const local = {
     id: props.local.febId,

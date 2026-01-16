@@ -2,8 +2,9 @@
 import TeamMenuItem from './TeamMenuItem.vue'
 
 const menu = {
-  stats: { to: { name: 'teamStats' }, label: 'Comparativa' },
+  stats: { to: { name: 'teamStats' }, label: 'Estadísticas' },
   results: { to: { name: 'teamScores' }, label: 'Resultados' },
+  points: { to: { name: 'teamPoints' }, label: 'Puntos' },
   players: { to: { name: 'teamPlayerStats' }, label: 'Jugadores' },
   rankings: { to: { name: 'teamRankings' }, label: 'Rankings' },
 }

@@ -1,12 +1,12 @@
 <script lang="ts" setup>
 import { useLoader } from '@/composables/useLoader'
 
-const { isVisible, firstTime } = useLoader()
+const { isVisible } = useLoader()
 </script>
 
 <template>
   <div
-    v-if="isVisible || firstTime"
+    v-if="isVisible"
     class="absolute z-50 w-svw h-svh bg-gray-900 flex flex-col gap-4 justify-center items-center pb-40"
   >
     <div>

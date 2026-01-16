@@ -2,11 +2,7 @@
 import type { TeamView } from '@/types/teams'
 import ScoreRow from './ScoreRow.vue'
 
-interface Props {
-  team: TeamView
-}
-
-defineProps<Props>()
+defineProps<{ team: TeamView }>()
 </script>
 
 <template>
@@ -21,10 +17,15 @@ defineProps<Props>()
         <div class="bg-white-pure p-4 flex flex-col gap-2 rounded-lg shadow">
           <ScoreRow
             :id="score.localTeamFebId"
+            :name="score.localPrettyName"
             :points="score.localScore"
             class="border-b pb-2 border-gray-200"
           />
-          <ScoreRow :id="score.awayTeamFebId" :points="score.awayScore" />
+          <ScoreRow
+            :id="score.awayTeamFebId"
+            :points="score.awayScore"
+            :name="score.awayPrettyName"
+          />
         </div>
       </div>
     </div>

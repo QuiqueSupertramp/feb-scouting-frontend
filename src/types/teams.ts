@@ -22,9 +22,13 @@ export interface Score {
   date: string
   time: string
   localTeamFebId: string
+  localName: string
+  localPrettyName: string
   localScore: number
   localQuarters: number[]
   awayTeamFebId: string
+  awayName: string
+  awayPrettyName: string
   awayScore: number
   awayQuarters: number[]
 }
@@ -92,9 +96,9 @@ export interface TeamStatsView {
   stats: GameTeamStats
 }
 
-type Quarters = [number, number, number, number]
+export type Quarters = [number, number, number, number]
 
-interface Points {
+export interface Points {
   points: number
   pointsAgainst: number
   quarters: Quarters

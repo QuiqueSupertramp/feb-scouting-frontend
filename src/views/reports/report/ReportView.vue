@@ -3,10 +3,10 @@ import { onMounted, ref } from 'vue'
 import TeamTableReport from './TeamTableReport.vue'
 import ScoresReport from './ScoresReport.vue'
 import type { GameTeamStats, TeamView } from '@/types/teams'
-import { Network } from '@/api/network'
 import RankingReport from './RankingReport.vue'
 import PlayersTableReport from './PlayersTableReport.vue'
 import { useLoader } from '@/composables/useLoader'
+import { TeamService } from '@/api/teamService'
 
 interface Props {
   localId: string
@@ -26,15 +26,15 @@ const away = ref<TeamView>()
 const league = ref<GameTeamStats>()
 
 const getLocalTeam = async () => {
-  const { data } = await Network.get<TeamView>(`teams/${props.localId}`)
+  const { data } = await TeamService.getTeam(props.localId)
   local.value = data
 }
 const getAwayTeam = async () => {
-  const { data } = await Network.get<TeamView>(`teams/${props.awayId}`)
+  const { data } = await TeamService.getTeam(props.awayId)
   away.value = data
 }
 const getLeague = async () => {
-  const { data } = await Network.get<GameTeamStats>(`team-stats`)
+  const { data } = await TeamService.getLeagueStats()
   league.value = data
 }
 

@@ -1,11 +1,7 @@
 <script lang="ts" setup>
 import type { TeamView } from '@/types/teams'
 
-interface Props {
-  team: TeamView
-}
-
-defineProps<Props>()
+defineProps<{ team: TeamView }>()
 </script>
 
 <template>

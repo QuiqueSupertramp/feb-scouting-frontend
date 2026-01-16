@@ -1,6 +1,7 @@
 interface Classification {
   teamFebId: string
   name: string
+  prettyName: string
   games: number
   wins: number
   losses: number

@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
-import { Network } from '@/api/network'
 import TeamHeader from './components/header/TeamHeader.vue'
 import type { TeamView } from '@/types/teams'
 import { useLoader } from '@/composables/useLoader'
+import { TeamService } from '@/api/teamService'
 
 const route = useRoute()
 const { open, close } = useLoader()
@@ -16,7 +16,7 @@ const loadTeam = async () => {
   open()
   isLoading.value = true
 
-  const { data, error } = await Network.get<TeamView>(`teams/${route.params.id}`)
+  const { data, error } = await TeamService.getTeam(route.params.id as string)
 
   hasError.value = !!error
   team.value = error ? undefined : data

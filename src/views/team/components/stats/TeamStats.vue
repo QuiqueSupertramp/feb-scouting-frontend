@@ -1,48 +1,44 @@
 <script lang="ts" setup>
-import { Network } from '@/api/network'
-import { useTeamsStore } from '@/stores/teams'
-import type { GameTeamStats, TeamStatsView, TeamView } from '@/types/teams'
+import type { GameTeamStats, Team, TeamStatsView, TeamView } from '@/types/teams'
 import { computed, onMounted, ref } from 'vue'
 import TeamStatsTableRow from './TeamStatsTableRow.vue'
+import { TeamService } from '@/api/teamService'
 
-interface Props {
-  team: TeamView
-}
+const props = defineProps<{ team: TeamView }>()
 
-const props = defineProps<Props>()
-
-const teamsStore = useTeamsStore()
-
-const teamsOptions = computed(() => {
-  return teamsStore.teams.filter((t) => t.febId !== props.team.febId)
-})
-
+const allTeamsData = ref<Team[]>([])
+const league = ref<GameTeamStats>()
+const awayTeam = ref<TeamStatsView>()
 const selectedTeam = ref('0')
 
-const awayTeam = ref<TeamStatsView>()
-const hasError = ref(false)
-const isLoading = ref(false)
-const league = ref<GameTeamStats>()
+const teamsOptions = computed(() => {
+  return allTeamsData.value.filter((t) => t.febId !== props.team.febId)
+})
 
 const loadAwayTeam = async (e: Event) => {
-  isLoading.value = true
   const teamId = (e.target as HTMLInputElement).value
   awayTeam.value = undefined
 
-  const { data, error } = await Network.get<TeamStatsView>(`team-stats/${teamId}`)
+  const { data, error } = await TeamService.getTeamStats(teamId)
 
-  hasError.value = !!error
+  if (error) console.log('error:', error)
   selectedTeam.value = error ? '0' : teamId
   awayTeam.value = error ? undefined : data
-  isLoading.value = false
 }
 
 const loadLeagueStats = async () => {
-  const { data } = await Network.get<GameTeamStats>(`team-stats`)
+  const { data, error } = await TeamService.getLeagueStats()
+  if (error) console.log('error:', error)
   league.value = data
 }
 
-onMounted(loadLeagueStats)
+const loadTeams = async () => {
+  const { data, error } = await TeamService.getTeams()
+  if (error) console.log('error:', error)
+  allTeamsData.value = data ?? []
+}
+
+onMounted(async () => await Promise.all([loadLeagueStats(), loadTeams()]))
 </script>
 
 <template>

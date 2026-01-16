@@ -32,6 +32,11 @@ const router = createRouter({
           component: () => import('../views/team/components/scores/TeamScores.vue'),
         },
         {
+          path: 'points',
+          name: 'teamPoints',
+          component: () => import('../views/team/components/points/TeamPoints.vue'),
+        },
+        {
           path: 'players',
           name: 'teamPlayerStats',
           component: () => import('../views/team/components/players/TeamPlayers.vue'),
@@ -51,10 +56,29 @@ const router = createRouter({
         layout: LAYOUTS.EMPTY,
       },
     },
+    // {
+    //   path: '/leagues',
+    //   name: 'leagues',
+    //   component: () => import('../views/leagues/LeaguesView.vue'),
+    // },
     {
       path: '/leagues',
       name: 'leagues',
       component: () => import('../views/leagues/LeaguesView.vue'),
+      redirect: { name: 'leagueClassification' },
+      children: [
+        {
+          path: 'classification',
+          name: 'leagueClassification',
+          component: () =>
+            import('../views/leagues/components/classification/ClassificationView.vue'),
+        },
+        {
+          path: 'ranking-players',
+          name: 'leagueRankingPlayers',
+          component: () => import('../views/leagues/components/players/RankingPlayers.vue'),
+        },
+      ],
     },
     {
       path: '/:pathMatch(.*)*',

@@ -1,11 +1,13 @@
+const BASE_URL = 'https://feb-scouting-backend.onrender.com'
+
 export class Network {
   static async get<T>(url: string) {
     try {
-      const response = await fetch(`https://feb-scouting-backend.onrender.com/${url}`, {
+      const response = await fetch(`${`${BASE_URL}${url}`}`, {
         method: 'GET',
         credentials: 'include',
       })
-      if (!response.ok) throw 'fd'
+      if (!response.ok) throw 'error'
       const json = (await response.json()) as ApiErrorParams | ApiSuccess<T>
       if (!json.success) throw new ApiError(json)
       return { data: json.data }
@@ -37,7 +39,7 @@ interface ApiSuccess<T> {
   success: true
   data: T
 }
-interface ErrorResponse {
+export interface ErrorResponse {
   status: number
   message: string
   details?: unknown

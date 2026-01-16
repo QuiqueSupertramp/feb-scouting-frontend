@@ -1,21 +1,30 @@
 <script lang="ts" setup>
-import { useTeamsStore } from '@/stores/teams'
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import ReportView from './report/ReportView.vue'
+import { TeamService } from '@/api/teamService'
+import type { Team } from '@/types/teams'
 
-const teamsStore = useTeamsStore()
+const allTeamsData = ref<Team[]>([])
+
+const loadTeams = async () => {
+  const { data, error } = await TeamService.getTeams()
+  if (error) console.log('error:', error)
+  allTeamsData.value = data ?? []
+}
 
 const localTeamsOptions = computed(() => {
-  return teamsStore.teams.filter((t) => t.febId !== awayTeam.value)
+  return allTeamsData.value.filter((t) => t.febId !== awayTeam.value)
 })
 const awayTeamsOptions = computed(() => {
-  return teamsStore.teams.filter((t) => t.febId !== localTeam.value)
+  return allTeamsData.value.filter((t) => t.febId !== localTeam.value)
 })
 
 const localTeam = ref('0')
 const awayTeam = ref('0')
 
 const show = ref(true)
+
+onMounted(loadTeams)
 </script>
 
 <template>
