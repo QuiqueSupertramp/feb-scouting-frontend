@@ -7,6 +7,10 @@ defineProps<{ team: TeamView }>()
 </script>
 
 <template>
-  <TeamMenu />
-  <TeamBanner :team="team" />
+  <div class="absolute w-full h-12">
+    <TeamMenu />
+  </div>
+  <div class="mt-12">
+    <TeamBanner :team="team" />
+  </div>
 </template>

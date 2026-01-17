@@ -1,8 +1,9 @@
 <script lang="ts" setup>
 interface Props {
   label: string
-  local?: number
-  away?: number
+  total: number
+  local: number
+  away: number
   league?: number
   percentage?: boolean
   noBorder?: boolean
@@ -11,43 +12,60 @@ interface Props {
 
 const props = defineProps<Props>()
 
-const getLocal = () => {
-  if (!props.local) return '-'
-  return props.percentage ? `${props.local}%` : props.local
-}
-const getAway = () => {
-  if (!props.away) return '-'
-  return props.percentage ? `${props.away}%` : props.away
+const getValue = (value?: number) => {
+  if (!value) return '-'
+  const qty = Math.round(value)
+  return props.percentage ? `${qty}%` : qty
 }
 
-const isLocalBetter = () => {
-  if (!props.local || props.better === null) return false
-  const local = props.local ?? 0
+const isBetter = (value?: number) => {
+  if (!value || props.better === null) return false
   const league = props.league ?? 0
-  return props.better ? local > league : local < league
+  return props.better ? value > league * 1.1 : value < league * 0.9
 }
-const isAwayBetter = () => {
-  if (!props.away || props.better === null) return false
-  const away = props.away ?? 0
+
+const isWorst = (value?: number) => {
+  if (!value || props.better === null) return false
   const league = props.league ?? 0
-  return props.better ? away > league : away < league
+  return props.better ? value < league * 0.9 : value > league * 1.1
 }
 </script>
 <template>
   <tr class="border-b" :class="noBorder ? 'border-transparent' : 'border-white'">
-    <th class="pl-4 pr-4 py-3 w-1/4 font-light">{{ label }}</th>
-    <td class="py-3 w-1/4 text-center border-l border-white font-light bg-cyan-100">
-      {{ league ?? '-' }}
-      <span v-if="league && percentage">%</span>
+    <th class="text-center py-3 title">{{ label }}</th>
+
+    <td class="font-light text-center border-l border-white bg-cyan-100">
+      {{ getValue(league) }}
     </td>
-    <td class="py-3 w-1/4 text-center" :class="{ 'bg-green-100 font-semibold': isLocalBetter() }">
-      <span>{{ getLocal() }}</span>
+
+    <td
+      class="font-light text-center border-l border-white"
+      :class="{
+        'bg-lime-100': isBetter(total),
+        'bg-red-100': isWorst(total),
+      }"
+    >
+      <div>{{ getValue(total) }}</div>
+    </td>
+
+    <td
+      class="font-light text-center border-l border-white"
+      :class="{
+        // 'bg-lime-100 font-semibold': isLocalBetter(),
+        'bg-lime-100': isBetter(local),
+        'bg-red-100!': isWorst(local),
+      }"
+    >
+      <span>{{ getValue(local) }}</span>
     </td>
     <td
-      class="py-3 w-1/4 text-center border-l border-white"
-      :class="{ 'bg-green-100 font-semibold': isAwayBetter() }"
+      class="font-light py-3 text-center border-l border-white"
+      :class="{
+        'bg-lime-100': isBetter(away),
+        'bg-red-100 !': isWorst(away),
+      }"
     >
-      {{ getAway() }}
+      {{ getValue(away) }}
     </td>
   </tr>
 </template>

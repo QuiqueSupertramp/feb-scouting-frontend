@@ -32,11 +32,6 @@ const router = createRouter({
           component: () => import('../views/team/components/scores/TeamScores.vue'),
         },
         {
-          path: 'points',
-          name: 'teamPoints',
-          component: () => import('../views/team/components/points/TeamPoints.vue'),
-        },
-        {
           path: 'players',
           name: 'teamPlayerStats',
           component: () => import('../views/team/components/players/TeamPlayers.vue'),

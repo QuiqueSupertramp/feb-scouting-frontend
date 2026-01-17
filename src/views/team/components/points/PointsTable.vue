@@ -3,9 +3,10 @@ import type { Points } from '@/types/teams'
 import PointsRow from './PointsRow.vue'
 
 interface Props {
-  team: Points
+  points: Points
   title: string
   teamId: string
+  name: string
   reverse?: boolean
 }
 
@@ -20,18 +21,20 @@ defineProps<Props>()
       <span class="title">{{ title }}</span>
     </div>
 
-    <div class="p-4 flex flex-col gap-2">
+    <div class="p-4 flex flex-col gap-2 w-full">
       <PointsRow
         :class="reverse ? 'order-3' : 'order-1'"
-        :points="team.points"
-        :quarters="team.quarters"
+        :points="points.points"
+        :quarters="points.quarters"
         :team-id="teamId"
+        :name="name"
       />
       <div class="h-px w-full bg-gray-200 order-2"></div>
       <PointsRow
         :class="reverse ? 'order-1' : 'order-3'"
-        :points="team.pointsAgainst"
-        :quarters="team.quartersAgainst"
+        :points="points.pointsAgainst"
+        :quarters="points.quartersAgainst"
+        :name="name"
       />
     </div>
   </div>

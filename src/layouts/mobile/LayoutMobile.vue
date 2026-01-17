@@ -3,7 +3,7 @@ import LayoutMobileFooter from './LayoutMobileFooter.vue'
 </script>
 
 <template>
-  <div class="layout tracking-wide text-sm">
+  <div class="relative layout tracking-wide text-sm overflow-hidden">
     <main class="bg-white overflow-y-auto w-full">
       <RouterView />
     </main>

@@ -1,30 +1,15 @@
 <script lang="ts" setup>
-import type { GameTeamStats, GameTeamStatsList, Team, TeamView } from '@/types/teams'
-import { computed, onMounted, ref } from 'vue'
+import type { GameTeamStats, TeamView } from '@/types/teams'
+import { onMounted, ref } from 'vue'
 import TeamStatsTableRow from './TeamStatsTableRow.vue'
 import { TeamService } from '@/api/teamService'
+import IconHome from '@/components/icons/IconHome.vue'
+import IconAway from '@/components/icons/IconAway.vue'
+import TeamPoints from '../points/TeamPoints.vue'
 
-const props = defineProps<{ team: TeamView }>()
+defineProps<{ team: TeamView }>()
 
-const allTeamsData = ref<Team[]>([])
 const league = ref<GameTeamStats>()
-const awayTeam = ref<GameTeamStatsList>()
-const selectedTeam = ref('0')
-
-const teamsOptions = computed(() => {
-  return allTeamsData.value.filter((t) => t.febId !== props.team.febId)
-})
-
-const loadAwayTeam = async (e: Event) => {
-  const teamId = (e.target as HTMLInputElement).value
-  awayTeam.value = undefined
-
-  const { data, error } = await TeamService.getTeamStats(teamId)
-
-  if (error) console.log('error:', error)
-  selectedTeam.value = error ? '0' : teamId
-  awayTeam.value = error ? undefined : data
-}
 
 const loadLeagueStats = async () => {
   const { data, error } = await TeamService.getLeagueStats()
@@ -32,152 +17,175 @@ const loadLeagueStats = async () => {
   league.value = data
 }
 
-const loadTeams = async () => {
-  const { data, error } = await TeamService.getTeams()
-  if (error) console.log('error:', error)
-  allTeamsData.value = data ?? []
-}
-
-onMounted(async () => await Promise.all([loadLeagueStats(), loadTeams()]))
+onMounted(async () => await Promise.all([loadLeagueStats()]))
 </script>
 
 <template>
   <div v-if="!team">Se ha producido un error</div>
   <template v-else>
-    <div class="mx-auto max-w-100 mb-8 px-4">
-      <div class="w-full flex justify-center mb-3">
-        <select
-          v-if="teamsOptions"
-          v-model="selectedTeam"
-          @change="loadAwayTeam"
-          class="outline-0 shadow-xl bg-white-pure rounded-lg px-2 py-3"
-        >
-          <option :value="0">Seleccionar</option>
-          <option v-for="team in teamsOptions" :key="team.febId" :value="team.febId">
-            {{ team.name }}
-          </option>
-        </select>
-      </div>
-
-      <div class="shadow-2xl bg-white-pure rounded-lg overflow-hidden mt-6">
+    <div class="mx-auto max-w-150 my-8 px-8">
+      <div class="shadow-2xl bg-white-pure rounded-lg overflow-hidden">
         <table class="text-left w-full">
           <tbody>
             <tr class="border-b border-gray-100">
-              <td class="pl-4 pr-4 py-3 w-1/4 title"></td>
-              <td class="py-3 w-1/4">
+              <td class="w-1/5 py-3"></td>
+              <td class="w-1/5 py-3">
                 <div class="flex justify-center items-center">
-                  <img src="/src/assets/images/FebLogoHorizontal.webp" class="h-8" />
+                  <img src="/src/assets/images/FebLogoHorizontal.webp" class="h-8 max-w-fit" />
                 </div>
               </td>
-              <td class="py-3 w-1/4">
+              <td class="w-1/5 py-3">
                 <div class="flex justify-center items-center">
                   <img
                     :src="`https://imagenes.feb.es/Imagen.aspx?i=${team.febId}&ti=1`"
-                    class="h-8 w-8 rounded-full"
+                    class="max-h-8 w-8 rounded-full object-contain"
                   />
                 </div>
               </td>
-              <td class="py-3 w-1/4">
-                <div class="flex justify-center items-center">
-                  <img
+              <td class="w-1/5 py-3">
+                <div class="flex justify-center items-center text-orange-300">
+                  <component :is="IconHome" :size="28" />
+                  <!-- <img
                     v-if="selectedTeam !== '0'"
                     :src="`https://imagenes.feb.es/Imagen.aspx?i=${selectedTeam}&ti=1`"
                     class="h-8 w-8 rounded-full"
-                  />
+                  /> -->
+                </div>
+              </td>
+              <td class="w-1/5 py-3 text-orange-300">
+                <div class="flex justify-center items-center">
+                  <component :is="IconAway" :size="28" />
                 </div>
               </td>
             </tr>
             <TeamStatsTableRow
               label="PT"
-              :local="team.teamStats.total.points"
-              :away="awayTeam?.total.points"
+              :total="team.teamStats.total.points"
+              :local="team.teamStats.local.points"
+              :away="team.teamStats.away.points"
               :league="league?.points"
               :better="true"
             />
             <TeamStatsTableRow
               label="T2"
-              :local="team.teamStats.total.twoPoints.percentage"
-              :away="awayTeam?.total.twoPoints.percentage"
+              :total="team.teamStats.total.twoPoints.attempted"
+              :local="team.teamStats.local.twoPoints.attempted"
+              :away="team.teamStats.away.twoPoints.attempted"
+              :league="league?.twoPoints.attempted"
+              :better="true"
+            />
+            <TeamStatsTableRow
+              label="%T2"
+              :total="team.teamStats.total.twoPoints.percentage"
+              :local="team.teamStats.local.twoPoints.percentage"
+              :away="team.teamStats.away.twoPoints.percentage"
               :league="league?.twoPoints.percentage"
               :better="true"
               percentage
             />
             <TeamStatsTableRow
               label="T3"
-              :local="team.teamStats.total.threePoints.percentage"
-              :away="awayTeam?.total.threePoints.percentage"
+              :total="team.teamStats.total.threePoints.attempted"
+              :local="team.teamStats.local.threePoints.attempted"
+              :away="team.teamStats.away.threePoints.attempted"
+              :league="league?.threePoints.attempted"
+              :better="true"
+            />
+            <TeamStatsTableRow
+              label="%T3"
+              :total="team.teamStats.total.threePoints.percentage"
+              :local="team.teamStats.local.threePoints.percentage"
+              :away="team.teamStats.away.threePoints.percentage"
               :league="league?.threePoints.percentage"
               :better="true"
               percentage
             />
             <TeamStatsTableRow
               label="TL"
-              :local="team.teamStats.total.freeThrows.percentage"
-              :away="awayTeam?.total.freeThrows.percentage"
+              :total="team.teamStats.total.freeThrows.attempted"
+              :local="team.teamStats.local.freeThrows.attempted"
+              :away="team.teamStats.away.freeThrows.attempted"
+              :league="league?.freeThrows.attempted"
+              :better="true"
+            />
+            <TeamStatsTableRow
+              label="%TL"
+              :total="team.teamStats.total.freeThrows.percentage"
+              :local="team.teamStats.local.freeThrows.percentage"
+              :away="team.teamStats.away.freeThrows.percentage"
               :league="league?.freeThrows.percentage"
               :better="true"
               percentage
             />
             <TeamStatsTableRow
               label="RO"
-              :local="team.teamStats.total.offensiveRebounds"
-              :away="awayTeam?.total.offensiveRebounds"
+              :total="team.teamStats.total.offensiveRebounds"
+              :local="team.teamStats.local.offensiveRebounds"
+              :away="team.teamStats.away.offensiveRebounds"
               :league="league?.offensiveRebounds"
               :better="true"
             />
             <TeamStatsTableRow
               label="RD"
-              :local="team.teamStats.total.defensiveRebounds"
-              :away="awayTeam?.total.defensiveRebounds"
+              :total="team.teamStats.total.defensiveRebounds"
+              :local="team.teamStats.local.defensiveRebounds"
+              :away="team.teamStats.away.defensiveRebounds"
               :league="league?.defensiveRebounds"
               :better="true"
             />
             <TeamStatsTableRow
               label="RT"
-              :local="team.teamStats.total.totalRebounds"
-              :away="awayTeam?.total.totalRebounds"
+              :total="team.teamStats.total.totalRebounds"
+              :local="team.teamStats.local.totalRebounds"
+              :away="team.teamStats.away.totalRebounds"
               :league="league?.totalRebounds"
               :better="true"
             />
             <TeamStatsTableRow
               label="AS"
-              :local="team.teamStats.total.assists"
-              :away="awayTeam?.total.assists"
+              :total="team.teamStats.total.assists"
+              :local="team.teamStats.local.assists"
+              :away="team.teamStats.away.assists"
               :league="league?.assists"
               :better="true"
             />
             <TeamStatsTableRow
               label="BR"
-              :local="team.teamStats.total.steals"
-              :away="awayTeam?.total.steals"
+              :total="team.teamStats.total.steals"
+              :local="team.teamStats.local.steals"
+              :away="team.teamStats.away.steals"
               :league="league?.steals"
               :better="true"
             />
             <TeamStatsTableRow
               label="BP"
-              :local="team.teamStats.total.turnovers"
-              :away="awayTeam?.total.turnovers"
+              :total="team.teamStats.total.turnovers"
+              :local="team.teamStats.local.turnovers"
+              :away="team.teamStats.away.turnovers"
               :league="league?.turnovers"
               :better="false"
             />
             <TeamStatsTableRow
               label="FC"
-              :local="team.teamStats.total.foulsCommitted"
-              :away="awayTeam?.total.foulsCommitted"
+              :total="team.teamStats.total.foulsCommitted"
+              :local="team.teamStats.local.foulsCommitted"
+              :away="team.teamStats.away.foulsCommitted"
               :league="league?.foulsCommitted"
               :better="null"
             />
             <TeamStatsTableRow
               label="FR"
-              :local="team.teamStats.total.foulsDrawn"
-              :away="awayTeam?.total.foulsDrawn"
+              :total="team.teamStats.total.foulsDrawn"
+              :local="team.teamStats.local.foulsDrawn"
+              :away="team.teamStats.away.foulsDrawn"
               :league="league?.foulsDrawn"
               :better="null"
             />
             <TeamStatsTableRow
               label="VA"
-              :local="team.teamStats.total.pir"
-              :away="awayTeam?.total.pir"
+              :total="team.teamStats.total.pir"
+              :local="team.teamStats.local.pir"
+              :away="team.teamStats.away.pir"
               :league="league?.pir"
               :better="true"
               no-border
@@ -185,6 +193,8 @@ onMounted(async () => await Promise.all([loadLeagueStats(), loadTeams()]))
           </tbody>
         </table>
       </div>
+
+      <TeamPoints :name="team.prettyName" :points="team.points" :feb-id="team.febId" />
     </div>
   </template>
 </template>

@@ -14,12 +14,12 @@ const teams = computed(() => {
   const local = {
     id: props.local.febId,
     name: props.local.prettyName,
-    ...props.local.teamStats.total,
+    ...props.local.teamStats.local,
   }
   const away = {
     id: props.away.febId,
     name: props.away.prettyName,
-    ...props.away.teamStats.total,
+    ...props.away.teamStats.away,
   }
   const league = {
     id: '0',
@@ -66,6 +66,7 @@ const teams = computed(() => {
             scope="col"
             :class="{
               'bg-green-100': league && team.points > league.points,
+              'bg-red-100': league && team.points < league.points,
               'border-t-4!': team.id === '0',
             }"
           >
@@ -80,6 +81,7 @@ const teams = computed(() => {
             scope="col"
             :class="{
               'bg-green-100': league && team.twoPoints.percentage > league.twoPoints.percentage,
+              'bg-red-100': league && team.twoPoints.percentage < league.twoPoints.percentage,
               'border-t-4!': team.id === '0',
             }"
           >
@@ -94,6 +96,7 @@ const teams = computed(() => {
             scope="col"
             :class="{
               'bg-green-100': league && team.threePoints.percentage > league.threePoints.percentage,
+              'bg-red-100': league && team.threePoints.percentage < league.threePoints.percentage,
               'border-t-4!': team.id === '0',
             }"
           >
@@ -108,6 +111,7 @@ const teams = computed(() => {
             scope="col"
             :class="{
               'bg-green-100': league && team.freeThrows.percentage > league.freeThrows.percentage,
+              'bg-red-100': league && team.freeThrows.percentage < league.freeThrows.percentage,
               'border-t-4!': team.id === '0',
             }"
           >
@@ -117,6 +121,7 @@ const teams = computed(() => {
             scope="col"
             :class="{
               'bg-green-100': league && team.offensiveRebounds > league.offensiveRebounds,
+              'bg-red-100': league && team.offensiveRebounds < league.offensiveRebounds,
               'border-t-4!': team.id === '0',
             }"
           >
@@ -126,6 +131,7 @@ const teams = computed(() => {
             scope="col"
             :class="{
               'bg-green-100': league && team.defensiveRebounds > league.defensiveRebounds,
+              'bg-red-100': league && team.defensiveRebounds < league.defensiveRebounds,
               'border-t-4!': team.id === '0',
             }"
           >
@@ -135,6 +141,7 @@ const teams = computed(() => {
             scope="col"
             :class="{
               'bg-green-100': league && team.totalRebounds > league.totalRebounds,
+              'bg-red-100': league && team.totalRebounds < league.totalRebounds,
               'border-t-4!': team.id === '0',
             }"
           >
@@ -144,6 +151,7 @@ const teams = computed(() => {
             scope="col"
             :class="{
               'bg-green-100': league && team.assists > league.assists,
+              'bg-red-100': league && team.assists < league.assists,
               'border-t-4!': team.id === '0',
             }"
           >
@@ -153,6 +161,7 @@ const teams = computed(() => {
             scope="col"
             :class="{
               'bg-green-100': league && team.steals > league.steals,
+              'bg-red-100': league && team.steals < league.steals,
               'border-t-4!': team.id === '0',
             }"
           >
@@ -162,6 +171,7 @@ const teams = computed(() => {
             scope="col"
             :class="{
               'bg-green-100': league && team.turnovers < league.turnovers,
+              'bg-red-100': league && team.turnovers > league.turnovers,
               'border-t-4!': team.id === '0',
             }"
           >
@@ -177,6 +187,7 @@ const teams = computed(() => {
             scope="col"
             :class="{
               'bg-green-100': league && team.pir > league.pir,
+              'bg-red-100': league && team.pir < league.pir,
               'border-t-4!': team.id === '0',
             }"
           >

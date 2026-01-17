@@ -1,14 +1,14 @@
 <script lang="ts" setup>
 import PointsTable from './PointsTable.vue'
-import type { TeamView } from '@/types/teams'
+import type { PointsStats } from '@/types/teams'
 
-defineProps<{ team: TeamView }>()
+defineProps<{ points: PointsStats; febId: string; name: string }>()
 </script>
 
 <template>
-  <div class="mx-auto max-w-87 mb-8">
-    <PointsTable :team="team.points.total" :team-id="team.febId" title="Total" />
-    <PointsTable :team="team.points.local" :team-id="team.febId" title="Como Local" />
-    <PointsTable :team="team.points.away" :team-id="team.febId" title="Como Visitante" />
+  <div class="mx-auto w-full max-w-100 my-20">
+    <PointsTable :name="name" :points="points.total" :team-id="febId" title="Total" />
+    <PointsTable :name="name" :points="points.local" :team-id="febId" title="Como Local" />
+    <PointsTable :name="name" :points="points.away" :team-id="febId" title="Como Visitante" />
   </div>
 </template>

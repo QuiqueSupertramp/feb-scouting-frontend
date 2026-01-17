@@ -9,8 +9,8 @@ export const useLoader = () => {
     if (!firstTime.value) return (isVisible.value = false)
 
     setTimeout(() => {
-      firstTime.value = false
       isVisible.value = false
+      firstTime.value = false
     }, 500)
   }
 
