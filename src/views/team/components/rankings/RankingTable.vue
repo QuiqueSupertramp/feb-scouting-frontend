@@ -23,7 +23,12 @@ const formatName = (name: string) => {
 <template>
   <div class="mx-auto w-full max-w-87">
     <div class="shadow-2xl bg-white-pure rounded-lg overflow-hidden">
-      <table class="text-left w-full">
+      <table class="w-full table-fixed">
+        <colgroup>
+          <col />
+          <col class="w-28" />
+        </colgroup>
+
         <tbody>
           <tr>
             <th class="text-center py-3 border-b border-gray-200 title uppercase" colspan="2">
@@ -31,10 +36,12 @@ const formatName = (name: string) => {
             </th>
           </tr>
           <tr v-for="player in players" :key="player.name" class="border-b border-gray-200">
-            <td class="py-3 w-2/3 pl-4 pr-2 text-balance font-light">
-              {{ formatName(player.name) }}
+            <td class="py-3 px-4 font-light">
+              <div class="truncate">
+                {{ formatName(player.name) }}
+              </div>
             </td>
-            <td class="py-3 w-1/3 text-center bg-cyan-100 font-semibold">{{ player.value }}</td>
+            <td class="py-3 text-center bg-cyan-100 font-semibold">{{ player.value }}</td>
           </tr>
         </tbody>
       </table>

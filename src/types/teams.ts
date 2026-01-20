@@ -25,12 +25,12 @@ export interface Score {
   localName: string
   localPrettyName: string
   localScore: number
-  localQuarters: number[]
+  localQuarters: Quarters
   awayTeamFebId: string
   awayName: string
   awayPrettyName: string
   awayScore: number
-  awayQuarters: number[]
+  awayQuarters: Quarters
 }
 
 export interface GameTeamStatsList {

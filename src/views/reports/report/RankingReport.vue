@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { sortPlayers } from '@/helpers/ranking'
+import { rankingPlayers } from '@/helpers/ranking'
 import type { TeamView } from '@/types/teams'
 import RankingTable from './RankingTable.vue'
 
@@ -10,8 +10,8 @@ interface Props {
 
 const props = defineProps<Props>()
 
-const localRanking = sortPlayers(props.local.playerStats)
-const awayRanking = sortPlayers(props.away.playerStats)
+const localRanking = rankingPlayers(props.local.playerStats)
+const awayRanking = rankingPlayers(props.away.playerStats)
 </script>
 
 <template>

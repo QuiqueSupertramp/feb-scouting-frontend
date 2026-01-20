@@ -31,28 +31,25 @@ onMounted(loadClassifications)
 <template>
   <div v-if="!isLoading && hasError">Ha habido un error al cargar la liga</div>
 
-  <div v-if="!isLoading && !hasError && classifications" class="my-10 px-8">
-    <!-- <div class="flex justify-center items-center">
-      <img src="/src/assets/images/FebLogoHorizontal.webp" class="h-16 mb-4" />
-    </div> -->
+  <div v-if="!isLoading && !hasError && classifications" class="p-8">
     <div class="mx-auto max-w-150 grid grid-cols-3 gap-2 mb-6">
       <button
         @click="selectedLeague = 'total'"
-        class="bg-white-pure rounded-full shadow-2xl font-semibold text-cyan-800 px-6 py-2"
+        class="bg-white-pure rounded-full shadow-2xl px-6 py-2"
         :class="{ 'bg-orange!': selectedLeague === 'total' }"
       >
         Total
       </button>
       <button
         @click="selectedLeague = 'local'"
-        class="bg-white-pure rounded-full shadow-2xl font-semibold text-cyan-800 px-6 py-2"
+        class="bg-white-pure rounded-full shadow-2xl px-6 py-2"
         :class="{ 'bg-orange!': selectedLeague === 'local' }"
       >
         Local
       </button>
       <button
         @click="selectedLeague = 'away'"
-        class="bg-white-pure rounded-full shadow-2xl font-semibold text-cyan-800 px-6 py-2"
+        class="bg-white-pure rounded-full shadow-2xl px-6 py-2"
         :class="{ 'bg-orange!': selectedLeague === 'away' }"
       >
         Visitante
@@ -79,8 +76,8 @@ onMounted(loadClassifications)
           </tr>
 
           <tr
-            v-for="(team, index) in classifications[selectedLeague]"
-            :key="team.teamFebId"
+            v-for="(classification, index) in classifications[selectedLeague]"
+            :key="classification.teamFebId"
             :class="{
               'border-b border-white': index !== classifications.total.length - 1,
               'bg-green-100 border-white-pure': index < 4,
@@ -89,18 +86,24 @@ onMounted(loadClassifications)
           >
             <th class="pl-3 pr-1 py-3 font-normal">{{ index + 1 }}</th>
             <th class="pr-1 py-3 font-normal underline text-blue-600">
-              <RouterLink :to="{ name: 'teamStats', params: { id: team.teamFebId } }">
-                {{ team.prettyName }}
+              <RouterLink :to="{ name: 'teamStats', params: { id: classification.teamFebId } }">
+                {{ classification.prettyName }}
               </RouterLink>
             </th>
-            <td class="text-center font-light">{{ team.wins }}</td>
-            <td class="text-center font-light">{{ team.losses }}</td>
+            <td class="text-center font-light">{{ classification.wins }}</td>
+            <td class="text-center font-light">{{ classification.losses }}</td>
             <td class="text-center font-light">
-              {{ !showTotalPoints ? Math.round(team.points / team.games) : team.points }}
+              {{
+                !showTotalPoints
+                  ? Math.round(classification.points / classification.games)
+                  : classification.points
+              }}
             </td>
             <td class="text-center font-light">
               {{
-                !showTotalPoints ? Math.round(team.pointsAgainst / team.games) : team.pointsAgainst
+                !showTotalPoints
+                  ? Math.round(classification.pointsAgainst / classification.games)
+                  : classification.pointsAgainst
               }}
             </td>
           </tr>

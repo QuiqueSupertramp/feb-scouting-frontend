@@ -1,6 +1,6 @@
 import type { PlayerStatsView } from '@/types/teams'
 
-export const sortPlayers = (players: PlayerStatsView[]) => {
+export const rankingPlayers = (players: PlayerStatsView[]) => {
   const points = players
     .sort((a, b) => b.stats.points - a.stats.points)
     .slice(0, 3)

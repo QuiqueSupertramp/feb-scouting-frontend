@@ -1,13 +1,8 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
-import type { RouteLocationAsPathGeneric, RouteLocationAsRelativeGeneric } from 'vue-router'
+import type { SlideMenuItem } from './types'
 
-interface Props {
-  to: RouteLocationAsRelativeGeneric | RouteLocationAsPathGeneric
-  label: string
-}
-
-defineProps<Props>()
+defineProps<SlideMenuItem>()
 
 const button = ref()
 
@@ -27,7 +22,6 @@ const onClick = () => {
 <style scoped>
 a.router-link-exact-active {
   color: var(--color-orange-500);
-  /* border-bottom: 2px solid var(--color-orange-500); */
 }
 
 a.router-link-exact-active:hover {
@@ -36,11 +30,6 @@ a.router-link-exact-active:hover {
 }
 
 a {
-  /* display: inline-block; */
   border-bottom: 2px solid transparent;
 }
-
-/* nav a:first-of-type {
-  border: 0;
-} */
 </style>

@@ -1,19 +1,17 @@
 <script lang="ts" setup>
-import type { TeamView } from '@/types/teams'
 import { formatPlayerName } from '../../../../helpers/players'
+import PlayerImageTable from '@/components/image/PlayerImageTable.vue'
+import type { TeamView } from '@/types/teams'
 
-interface Props {
-  team: TeamView
-}
-
-const props = defineProps<Props>()
+const props = defineProps<{ team: TeamView }>()
 
 const sortPlayers = () => {
   const playerStats = [...props.team.playerStats]
   return playerStats
     .sort((a, b) => b.stats.pir - a.stats.pir)
     .map((p) => ({
-      ...p,
+      playerFebId: p.playerFebId,
+      name: p.name,
       stats: {
         points: Math.round(p.stats.points),
         totalRebounds: Math.round(p.stats.totalRebounds),
@@ -43,10 +41,7 @@ const sortPlayers = () => {
           <template v-for="(player, i) in sortPlayers()" :key="player.playerFebId">
             <tr :class="{ 'bg-cyan-100': i % 2 === 0 }">
               <td class="w-1/6" rowspan="2">
-                <img
-                  :src="`https://imagenes.feb.es/Foto.aspx?c=${player.playerFebId}`"
-                  class="h-10 w-10 mx-auto rounded-full object-cover bg-white border border-gray-200"
-                />
+                <PlayerImageTable :player-id="player.playerFebId" />
               </td>
               <td class="pl-1 pt-3 text-left font-light" colspan="6">
                 {{ formatPlayerName(player.name) }}

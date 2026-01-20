@@ -51,7 +51,6 @@ const isWorst = (value?: number) => {
     <td
       class="font-light text-center border-l border-white"
       :class="{
-        // 'bg-lime-100 font-semibold': isLocalBetter(),
         'bg-lime-100': isBetter(local),
         'bg-red-100!': isWorst(local),
       }"

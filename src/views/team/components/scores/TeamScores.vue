@@ -1,6 +1,7 @@
 <script lang="ts" setup>
+import ScoreTable from '@/components/scores/ScoreTable.vue'
 import type { TeamView } from '@/types/teams'
-import ScoreRow from './ScoreRow.vue'
+import { getTeamImage } from '@/helpers/feb'
 
 defineProps<{ team: TeamView }>()
 </script>
@@ -14,19 +15,20 @@ defineProps<{ team: TeamView }>()
           <span>{{ score.date }} ({{ score.time.slice(0, -3) }})</span>
         </div>
 
-        <div class="bg-white-pure p-4 flex flex-col gap-2 rounded-lg shadow">
-          <ScoreRow
-            :id="score.localTeamFebId"
-            :name="score.localPrettyName"
-            :points="score.localScore"
-            class="border-b pb-2 border-gray-200"
-          />
-          <ScoreRow
-            :id="score.awayTeamFebId"
-            :points="score.awayScore"
-            :name="score.awayPrettyName"
-          />
-        </div>
+        <ScoreTable
+          :local="{
+            name: score.localPrettyName,
+            score: score.localScore,
+            quarters: score.localQuarters,
+            imageUrl: getTeamImage(score.localTeamFebId),
+          }"
+          :away="{
+            name: score.awayPrettyName,
+            score: score.awayScore,
+            quarters: score.awayQuarters,
+            imageUrl: getTeamImage(score.awayTeamFebId),
+          }"
+        />
       </div>
     </div>
   </div>

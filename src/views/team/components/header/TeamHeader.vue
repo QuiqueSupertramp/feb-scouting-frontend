@@ -11,6 +11,6 @@ defineProps<{ team: TeamView }>()
     <TeamMenu />
   </div>
   <div class="mt-12">
-    <TeamBanner :team="team" />
+    <TeamBanner :feb-id="team.febId" :name="team.name" />
   </div>
 </template>

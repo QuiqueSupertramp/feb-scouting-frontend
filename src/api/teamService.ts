@@ -1,11 +1,13 @@
 import type { GameTeamStats, GameTeamStatsList, Team, TeamView } from '@/types/teams'
 import { fetcher } from './fetcher'
+import { API_URLS } from './url'
 
 export class TeamService {
-  static getTeams = async () => await fetcher<Team[]>('/teams')
-  static getTeam = async (teamFebId: string) => await fetcher<TeamView>(`/teams/${teamFebId}`)
+  static getTeams = async () => await fetcher<Team[]>(`${API_URLS.teams}`)
+  static getTeam = async (teamFebId: string) =>
+    await fetcher<TeamView>(`${API_URLS.teams}/${teamFebId}`)
 
-  static getLeagueStats = async () => await fetcher<GameTeamStats>(`/team-stats`)
+  static getLeagueStats = async () => await fetcher<GameTeamStats>(`${API_URLS.teamStats}`)
   static getTeamStats = async (teamFebId: string) =>
-    await fetcher<GameTeamStatsList>(`/team-stats/${teamFebId}`)
+    await fetcher<GameTeamStatsList>(`${API_URLS.teamStats}/${teamFebId}`)
 }
